@@ -1,8 +1,26 @@
 from tickets.ticket import validar_empleados
 from tickets.ticket import generar_ids
 from menu.menu import menu
+from auth import registrar_usuario, verificar_credenciales
 
 def main():
+
+    usuarios = [
+        ["usuario1", "password1"],
+        ["usuario2", "password2"],
+        ["usuario3", "password3"]
+    ]
+
+    # Ingreso de usuario y contraseña
+    sesion_actual = verificar_credenciales(usuarios, "usuario1", "password1")
+    if not sesion_actual:
+        print("Inicio de sesión fallido.")
+        return
+    
+    # Registro de usuario
+    """ registro_exitoso = registrar_usuario(usuarios, "usuario4", "password4") """
+
+
     total_empleados = validar_empleados()
     #print("total empleados",len(lista_empleados))
     filas = total_empleados #Cantidad de empleados 
