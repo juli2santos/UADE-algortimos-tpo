@@ -1,3 +1,5 @@
+from validadores.validadores import opcion_mensual, opcion_desemp
+
 def reporte_anual(matriz_empleados):
     total_anual = 0
 
@@ -20,18 +22,86 @@ def reporte_anual_individual(matriz_empleados, ids):
     print(f'El total anual de tickets del empleado {id_empleado} es de {total_anual}.')
 
 
-def reporte_mensual(matriz_empleados):
-    # opcion_mensual = int(input(''))
+def reporte_mensual(matriz_empleados, ids): 
+    print('\n-----------------------')
+    print('1. Reporte mensual de todos los empleados')
+    print('2. Reporte mensual individual')
+    opcion = opcion_mensual()
 
-    mes = int(input('Ingrese el mes (1-12) para el cual desea recibir el reporte de tickets: '))
-    
-    while mes < 0 or mes > 13:
+    if opcion == 1:
+        mes = int(input('Ingrese el mes (1-12) para el cual desea recibir el reporte de tickets: '))
+        while mes < 0 or mes > 13:
             mes = int(input("Error - Mes inválido. Debe ingresar un valor entre 1 y 12: "))
 
-    mes_ind = mes - 1
-    total_mensual = 0
+        mes_ind = mes - 1
+        total_mensual = 0
 
-    for i in range(len(matriz_empleados)):
-        total_mensual += matriz_empleados[i][mes_ind]
+        for i in range(len(matriz_empleados)):
+            total_mensual += matriz_empleados[i][mes_ind]
+        print(f'El total de tickets mensual del mes {mes} es de {total_mensual}.')
+
+    elif opcion == 2:
+        print(f'IDs de empleados: {ids}')
+        id_empleado = int(input('Ingrese el ID del empleado que desea solicitar su reporte mensual: '))
+        
+        while id_empleado not in ids:
+            id_empleado = int(input('Error - ID inexistente. Ingrese un ID valido'))
+
+        ind_empleado = ids.index(id_empleado)
+
+        mes = int(input('Ingrese el mes (1-12) para el cual desea recibir el reporte de tickets: '))
+        while mes < 1 or mes > 13:
+            mes = int(input("Error - Mes inválido. Debe ingresar un valor entre 1 y 12: "))        
+
+        mes_ind = mes - 1
+        total_mensual = 0
+        
+        total_mensual += matriz_empleados[ind_empleado][mes_ind]
+        print(f'El total de tickets mensual del mes {mes}, del empleado {id_empleado} es de {total_mensual}.')
+
+
+def reporte_desemp_empleados(matriz_empleados, ids):
+    print('\n-----------------------')
+    print('1. Reporte del mejor desempeño de tickets de empleado')
+    print('2. Reporte del peor desempeño de tickets de empleado')
+    print('3. Reporte del promedio de tickets total de todos los empleados')
+    opcion = opcion_desemp()
+
+    if opcion == 1:
+        max_tickets = 0
+        mj_desemp = []
+
+        for i in range(len(matriz_empleados)):
+            total_tickets = sum(matriz_empleados[i])
+            if total_tickets > max_tickets:
+                max_tickets = total_tickets
+                mj_desemp = [ids[i]]
+            elif total_tickets == max_tickets:
+                mj_desemp.append(ids[i])
+        print(f'\n --- El mejor desempeño de tickets tiene un total de {max_tickets} tickets. ---')
+        print(f'\n --- ID(s) de los empleado(s) con el mejor desempeño: {mj_desemp}. ---')
     
-    print(f'El total de tickets mensual del mes {mes} es de {total_mensual}.')
+    elif opcion == 2:
+        min_tickets = 0
+        peor_desemp = []
+
+        for i in range(len(matriz_empleados)):
+            total_tickets = sum(matriz_empleados[i])
+            if total_tickets < min_tickets:
+                min_tickets = total_tickets
+                peor_desemp = [ids[i]]
+            elif total_tickets == min_tickets:
+                peor_desemp.append(ids[i])
+        print(f'\n --- El peor desempeño de tickets tiene un total de {min_tickets} tickets. ---')
+        print(f'\n --- ID(s) de los empleado(s) con el peor desempeño: {peor_desemp}. ---')
+
+    elif opcion == 3:
+        total = 0
+        total_empleados = len(matriz_empleados)
+
+        for i in range(total_empleados):
+            total += sum(matriz_empleados[i])
+        
+        promedio_total = total / total_empleados if total_empleados > 0 else 0
+        print(f'\n --- El promedio total de tickets es de: {promedio_total}. ---')
+    

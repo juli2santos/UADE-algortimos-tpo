@@ -1,7 +1,7 @@
 from tickets.mostrar_tickets import mostrar_tickets, modificar_matriz
 from tickets.ticket import cargar_ticket_manual
 from validadores.validadores import obtener_opcion
-from reportes.reportes import reporte_anual, reporte_anual_individual, reporte_mensual
+from reportes.reportes import reporte_anual, reporte_anual_individual, reporte_mensual, reporte_desemp_empleados
 
 def print_submenu():
     print("\n--- Submenú Reportes ---")
@@ -24,7 +24,10 @@ def sub_menu_reportes(matriz_empleados, ids):
             reporte_anual_individual(matriz_empleados, ids)
             print_submenu()
         elif opcion == 3:
-            reporte_mensual(matriz_empleados)
+            reporte_mensual(matriz_empleados, ids)
+            print_submenu()
+        elif opcion == 4:
+            reporte_desemp_empleados(matriz_empleados, ids)
             print_submenu()
         else:
             print("opcion no valida")
