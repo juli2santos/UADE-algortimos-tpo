@@ -9,3 +9,4 @@ def obtener_opcion():
         print("Error. Debe ser un número entre 1 y 5.")
         opcion = input("Elige una opción (1-5): ")
     return int(opcion)
+

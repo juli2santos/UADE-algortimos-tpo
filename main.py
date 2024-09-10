@@ -1,5 +1,4 @@
-from tickets.ticket import validar_empleados
-from tickets.ticket import generar_ids
+from tickets.ticket import validar_empleados, generar_ids
 from menu.menu import menu
 from auth import registrar_usuario, verificar_credenciales
 
@@ -22,7 +21,6 @@ def main():
     """ registro_exitoso = registrar_usuario(usuarios, "usuario4", "password4") """
 
     total_empleados = validar_empleados()
-    # print("total empleados",len(lista_empleados))
     filas = total_empleados  # Cantidad de empleados
     columnas = 12  # 12 una por cada mes
 
@@ -32,10 +30,10 @@ def main():
     for f in range(filas):
         matriz_empleados.append([0] * columnas)  # creacion de matriz de forma dinamica
 
-    if not ids:
+    if not ids:  # generacion de ids automaticamente post ingresar numero de empleados
         generar_ids(
             len(matriz_empleados), ids
-        )  # generacion de ids automaticamente post ingresar numero de empleados
+        )
 
     """Menú principal para la gestión de tickets."""
 

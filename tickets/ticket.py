@@ -31,7 +31,7 @@ def cargar_ticket_manual(matriz, ids):
             empleado = int(input("Error - ID de empleado inválido. Intente con un ID existente: "))
 
         mes = int(input("Ingrese el mes (1-12) para el cual desea cargar el valor: "))
-        while mes <= 0 or mes > 13:
+        while mes < 0 or mes > 13:
             mes = int(input("Error - Mes inválido. Debe ingresar un valor entre 1 y 12: "))
 
         cantidad = int(input("Ingrese la cantidad total de tickets: "))

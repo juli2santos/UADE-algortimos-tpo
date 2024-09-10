@@ -19,3 +19,19 @@ def reporte_anual_individual(matriz_empleados, ids):
 
     print(f'El total anual de tickets del empleado {id_empleado} es de {total_anual}.')
 
+
+def reporte_mensual(matriz_empleados):
+    # opcion_mensual = int(input(''))
+
+    mes = int(input('Ingrese el mes (1-12) para el cual desea recibir el reporte de tickets: '))
+    
+    while mes < 0 or mes > 13:
+            mes = int(input("Error - Mes inválido. Debe ingresar un valor entre 1 y 12: "))
+
+    mes_ind = mes - 1
+    total_mensual = 0
+
+    for i in range(len(matriz_empleados)):
+        total_mensual += matriz_empleados[i][mes_ind]
+    
+    print(f'El total de tickets mensual del mes {mes} es de {total_mensual}.')
