@@ -12,8 +12,8 @@ def reporte_anual_individual(matriz_empleados, ids):
     print(f'\n --- IDs de los empleados: {ids}. ---')
     id_empleado = int(input("Ingrese el ID del empleado del cual desea generar el reporte anual: "))
 
-    if id_empleado not in ids:
-        print('Error ID no encontrado. Por favor, ingrese un ID existente')
+    while id_empleado not in ids:
+     id_empleado = int(input('Error - ID inexistente. Ingrese un ID valido: '))
 
     ind_empleado = ids.index(id_empleado)
 
@@ -45,7 +45,7 @@ def reporte_mensual(matriz_empleados, ids):
         id_empleado = int(input('Ingrese el ID del empleado que desea solicitar su reporte mensual: '))
         
         while id_empleado not in ids:
-            id_empleado = int(input('Error - ID inexistente. Ingrese un ID valido'))
+            id_empleado = int(input('Error - ID inexistente. Ingrese un ID valido: '))
 
         ind_empleado = ids.index(id_empleado)
 
@@ -61,7 +61,7 @@ def reporte_mensual(matriz_empleados, ids):
 
 
 def reporte_desemp_empleados(matriz_empleados, ids):
-    print('\n 1. Reporte del Mejor Desempeño de Tickets de Empleado')
+    print('1. Reporte del Mejor Desempeño de Tickets de Empleado')
     print('2. Reporte del Peor Desempeño de Tickets de Empleado')
     print('3. Reporte del Promedio de Tickets Total de Todos los Empleados')
     opcion = opcion_desemp()

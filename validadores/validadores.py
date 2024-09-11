@@ -8,8 +8,7 @@ def validar_empleados():
         )
     return total_empleados
 
-def es_entero_positivo(valor):
-    return valor.isdigit() and int(valor) >=0
+es_entero_positivo = lambda valor: valor.isdigit() and int(valor) >= 0
 
 def validar_opcion(opcion, min_valor, max_valor):
     return es_entero(opcion, min_valor, max_valor)

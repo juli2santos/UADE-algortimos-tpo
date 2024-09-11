@@ -6,8 +6,8 @@ from tickets.ticket import generar_ids
 
 def main():
     # Listas paralelas para usuario y contraseñas
-    usuarios = ["usuario1", "password1"]
-    contrasenas = ["usuario2", "password2"]
+    usuarios = ["usuario1", "usuario2 "]
+    contrasenas = ["password1", "password2"]
 
 
     continuar = True
