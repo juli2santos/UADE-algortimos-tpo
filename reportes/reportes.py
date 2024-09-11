@@ -24,13 +24,13 @@ def reporte_anual_individual(matriz_empleados, ids):
 
 def reporte_mensual(matriz_empleados, ids): 
     print('\n-----------------------')
-    print('1. Reporte mensual de todos los empleados')
-    print('2. Reporte mensual individual')
+    print('1. Reporte Mensual de Todos los Empleados')
+    print('2. Reporte Mensual Individual')
     opcion = opcion_mensual()
 
     if opcion == 1:
         mes = int(input('Ingrese el mes (1-12) para el cual desea recibir el reporte de tickets: '))
-        while mes < 0 or mes > 13:
+        while mes < 1 or mes > 12:
             mes = int(input("Error - Mes inválido. Debe ingresar un valor entre 1 y 12: "))
 
         mes_ind = mes - 1
@@ -50,7 +50,7 @@ def reporte_mensual(matriz_empleados, ids):
         ind_empleado = ids.index(id_empleado)
 
         mes = int(input('Ingrese el mes (1-12) para el cual desea recibir el reporte de tickets: '))
-        while mes < 1 or mes > 13:
+        while mes < 1 or mes > 12:
             mes = int(input("Error - Mes inválido. Debe ingresar un valor entre 1 y 12: "))        
 
         mes_ind = mes - 1
@@ -62,9 +62,9 @@ def reporte_mensual(matriz_empleados, ids):
 
 def reporte_desemp_empleados(matriz_empleados, ids):
     print('\n-----------------------')
-    print('1. Reporte del mejor desempeño de tickets de empleado')
-    print('2. Reporte del peor desempeño de tickets de empleado')
-    print('3. Reporte del promedio de tickets total de todos los empleados')
+    print('1. Reporte del Mejor Desempeño de Tickets de Empleado')
+    print('2. Reporte del Peor Desempeño de Tickets de Empleado')
+    print('3. Reporte del Promedio de Tickets Total de Todos los Empleados')
     opcion = opcion_desemp()
 
     if opcion == 1:
@@ -105,3 +105,6 @@ def reporte_desemp_empleados(matriz_empleados, ids):
         promedio_total = total / total_empleados if total_empleados > 0 else 0
         print(f'\n --- El promedio total de tickets es de: {promedio_total}. ---')
     
+
+
+#corregir en el reporte mensual, que el mes 0 no sea valido

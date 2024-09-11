@@ -31,9 +31,7 @@ def main():
         matriz_empleados.append([0] * columnas)  # creacion de matriz de forma dinamica
 
     if not ids:  # generacion de ids automaticamente post ingresar numero de empleados
-        generar_ids(
-            len(matriz_empleados), ids
-        )
+        generar_ids(len(matriz_empleados), ids)
 
     """Menú principal para la gestión de tickets."""
 

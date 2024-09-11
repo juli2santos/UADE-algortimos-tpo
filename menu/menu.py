@@ -5,11 +5,12 @@ from reportes.reportes import reporte_anual, reporte_anual_individual, reporte_m
 
 def print_submenu():
     print("\n--- Submenú Reportes ---")
-    print("1. Reporte anual de todos los empleados")
+    print("1. Reporte Anual de Todos los Empleados")
     print("2. Reporte Anual Individual")
     print("3. Reporte Mensual")
     print("4. Reporte de Desempeño de Empleados")
     print("5. Salir")
+    print('\n')
 
 def sub_menu_reportes(matriz_empleados, ids):
     print_submenu()
@@ -35,16 +36,14 @@ def sub_menu_reportes(matriz_empleados, ids):
 
 def print_menu():
     print("\n--- Menú Ticketrack ---")
-    print("1. Añadir Tickets")
-    print("2. Modificar Tickets ")
-    print("3. Generar Reporte")
-    print("4. Mostrar Tickets")
-    print("5. Salir")
-
+    print("1. Añadir Tickets.")
+    print("2. Modificar Tickets.")
+    print("3. Generar Reporte.")
+    print("4. Mostrar Tickets.")
+    print("5. Salir.")
 
 def menu(matriz_empleados, columnas, ids):
     print_menu()
-
     opcion = obtener_opcion()
     while opcion != 5:
         if opcion == 1:
@@ -65,7 +64,7 @@ def menu(matriz_empleados, columnas, ids):
         else:
             print("Opcion no valida")
         opcion = obtener_opcion()
-    print('Hasta luego.')
+    print(f'Hasta luego.')
 
 # Falta agregar submenus de diferentes opciones, como por ej, dentro de la generacion de reportes, la posibilidad de
 # generar diferentes tipos de reportes, ya sea por empleado, en total por empleado, trimestral, un empleado en particular

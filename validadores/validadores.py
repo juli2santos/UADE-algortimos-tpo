@@ -1,5 +1,8 @@
 es_entero = lambda opcion, min_valor, max_valor: opcion.isdigit() and min_valor <= int(opcion) <= max_valor
 
+def es_entero_positivo(valor):
+    return valor.isdigit() and int(valor) >=0
+
 def validar_opcion(opcion, min_valor, max_valor):
     return es_entero(opcion, min_valor, max_valor)
 
