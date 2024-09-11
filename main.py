@@ -1,6 +1,8 @@
-from tickets.ticket import validar_empleados, generar_ids
 from menu.menu import menu
 from auth import registrar_usuario, verificar_credenciales, menu_login
+from validadores.validadores import validar_empleados 
+from tickets.ticket import generar_ids
+
 
 def main():
     # Listas paralelas para usuario y contraseñas

@@ -1,13 +1,5 @@
 from random import randint
-
-
-def validar_empleados():
-    total_empleados = int(input("Ingrese la cantidad de empleados "))
-    while total_empleados <= 0:
-        total_empleados = int(
-            input("Cantidad inválida. Ingrese la cantidad de empleados ")
-        )
-    return total_empleados
+from validadores.validadores import es_entero_positivo
 
 
 def generar_ids(total_empleados, ids):
@@ -19,7 +11,7 @@ def generar_ids(total_empleados, ids):
     print("\n --- IDs generados:", ids, "---")
 
 
-def cargar_ticket_manual(matriz, ids):
+def actualizar_tickets(matriz, ids):
 
     salir = False
     print(f"\n --- IDs de los empleados: {ids} ---")
@@ -60,3 +52,36 @@ def cargar_ticket_manual(matriz, ids):
 
         if salida != 1:
             salir = True
+
+
+def mostrar_tickets(matriz_empleados, columnas, ids):
+    meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
+    header = ' ' * 15 + ''.join([f"{mes:5}|" for mes in meses])
+    print(header)
+    print('-' * len(header))
+    
+    for i in range(len(matriz_empleados)):
+        print(f'Empleado {ids[i]:<6}', end='')
+        for j in range(columnas):
+            print(f"{matriz_empleados[i][j]:^6}", end="")
+        print()
+
+def cargar_tickets(matriz_empleados, ids):
+    meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
+    for i in range (len(matriz_empleados)):
+        print(f'\n --- Empleado {ids[i]} ---')
+        for j in range(len(matriz_empleados[0])):
+            band = False
+            while not band:
+                n = input(f'Ingrese la cantidad de tickets del mes {meses[j]}: ').strip()
+                if es_entero_positivo(n):
+                    n = int(n) 
+                    if 0 <= n <= 100:
+                        matriz_empleados[i][j] = n
+                        band = True
+                    else:
+                        print('Error - Ingrese un número entre 0 y 100.')
+                else:
+                    print('Error - Ingrese un número positivo entre 0 y 100.')
+
+

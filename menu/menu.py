@@ -1,5 +1,4 @@
-from tickets.mostrar_tickets import mostrar_tickets, modificar_matriz
-from tickets.ticket import cargar_ticket_manual
+from tickets.ticket import *
 from validadores.validadores import obtener_opcion
 from reportes.reportes import reporte_anual, reporte_anual_individual, reporte_mensual, reporte_desemp_empleados
 
@@ -46,11 +45,11 @@ def menu(matriz_empleados, columnas, ids):
     opcion = obtener_opcion()
     while opcion != 5:
         if opcion == 1:
-            modificar_matriz(matriz_empleados, ids)
+            cargar_tickets(matriz_empleados, ids)
             print_menu()
 
         elif opcion == 2:
-            cargar_ticket_manual(matriz_empleados, ids)
+            actualizar_tickets(matriz_empleados, ids)
             print_menu()
 
         elif opcion == 3:
