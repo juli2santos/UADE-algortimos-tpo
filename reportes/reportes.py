@@ -6,10 +6,10 @@ def reporte_anual(matriz_empleados):
     for i in range (len(matriz_empleados)):
         total_anual += sum(matriz_empleados[i])
 
-    print(f'El total anual de tickets de todos los empleados es de {total_anual}.')
+    print(f'\n --- El total anual de tickets de todos los empleados es de {total_anual}. ---')
 
 def reporte_anual_individual(matriz_empleados, ids):
-    print(f'IDs de los empleados: {ids}')
+    print(f'\n --- IDs de los empleados: {ids}. ---')
     id_empleado = int(input("Ingrese el ID del empleado del cual desea generar el reporte anual: "))
 
     if id_empleado not in ids:
@@ -19,7 +19,7 @@ def reporte_anual_individual(matriz_empleados, ids):
 
     total_anual = sum(matriz_empleados[ind_empleado])
 
-    print(f'El total anual de tickets del empleado {id_empleado} es de {total_anual}.')
+    print(f'\n --- El total anual de tickets del empleado {id_empleado} es de {total_anual}. ---')
 
 
 def reporte_mensual(matriz_empleados, ids): 
@@ -38,10 +38,10 @@ def reporte_mensual(matriz_empleados, ids):
 
         for i in range(len(matriz_empleados)):
             total_mensual += matriz_empleados[i][mes_ind]
-        print(f'El total de tickets mensual del mes {mes} es de {total_mensual}.')
+        print(f'\n --- El total de tickets mensual del mes {mes} es de {total_mensual}. ---')
 
     elif opcion == 2:
-        print(f'IDs de empleados: {ids}')
+        print(f'\n --- IDs de empleados: {ids} ---')
         id_empleado = int(input('Ingrese el ID del empleado que desea solicitar su reporte mensual: '))
         
         while id_empleado not in ids:
@@ -57,12 +57,11 @@ def reporte_mensual(matriz_empleados, ids):
         total_mensual = 0
         
         total_mensual += matriz_empleados[ind_empleado][mes_ind]
-        print(f'El total de tickets mensual del mes {mes}, del empleado {id_empleado} es de {total_mensual}.')
+        print(f'\n --- El total de tickets mensual del mes {mes}, del empleado {id_empleado} es de {total_mensual}. ---')
 
 
 def reporte_desemp_empleados(matriz_empleados, ids):
-    print('\n-----------------------')
-    print('1. Reporte del Mejor Desempeño de Tickets de Empleado')
+    print('\n 1. Reporte del Mejor Desempeño de Tickets de Empleado')
     print('2. Reporte del Peor Desempeño de Tickets de Empleado')
     print('3. Reporte del Promedio de Tickets Total de Todos los Empleados')
     opcion = opcion_desemp()
@@ -82,7 +81,7 @@ def reporte_desemp_empleados(matriz_empleados, ids):
         print(f'\n --- ID(s) de los empleado(s) con el mejor desempeño: {mj_desemp}. ---')
     
     elif opcion == 2:
-        min_tickets = 0
+        min_tickets = sum(matriz_empleados[0])
         peor_desemp = []
 
         for i in range(len(matriz_empleados)):
@@ -106,5 +105,3 @@ def reporte_desemp_empleados(matriz_empleados, ids):
         print(f'\n --- El promedio total de tickets es de: {promedio_total}. ---')
     
 
-
-#corregir en el reporte mensual, que el mes 0 no sea valido

@@ -16,13 +16,13 @@ def generar_ids(total_empleados, ids):
         if id not in ids:
             ids.append(id)
             print("Empleado", id)
-    print("IDs generados:", ids)
+    print("\n --- IDs generados:", ids,"---")
 
 
 def cargar_ticket_manual(matriz, ids):
 
     salir = False
-    print(f'IDs de los empleados: {ids}')
+    print(f'\n --- IDs de los empleados: {ids} ---')
 
     while not salir:
 

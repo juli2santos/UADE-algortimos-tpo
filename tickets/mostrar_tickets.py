@@ -15,12 +15,19 @@ def mostrar_tickets(matriz_empleados, columnas, ids):
 def modificar_matriz(matriz_empleados, ids):
     meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
     for i in range (len(matriz_empleados)):
-        print(f'Empleado {ids[i]}')
+        print(f'\n --- Empleado {ids[i]} ---')
         for j in range(len(matriz_empleados[0])):
-            n = input(f'Ingrese la cantidad de tickets del mes {meses[j]}: ').strip()
-            while not es_entero_positivo(n):
-                print('Error - Ingrese un número entero positivo.')
-                n = input(f'Ingrese la cantidad de tickets del mes {meses[j]}: ').strip()   
-            matriz_empleados[i][j] = n
+            band = False
+            while not band:
+                n = input(f'Ingrese la cantidad de tickets del mes {meses[j]}: ').strip()
+                if es_entero_positivo(n):
+                    n = int(n) 
+                    if 0 <= n <= 100:
+                        matriz_empleados[i][j] = n
+                        band = True
+                    else:
+                        print('Error - Ingrese un número entre 0 y 100.')
+                else:
+                    print('Error - Ingrese un número positivo entre 0 y 100.')
 
-#agregar validador de ingreso de tickets, cosa de que no se pueda agregar decimales, ni numeros negativos
+
