@@ -77,7 +77,11 @@ def cargar_tickets(matriz_empleados, ids):
                 if es_entero_positivo(n):
                     n = int(n) 
                     if 0 <= n <= 100:
-                        matriz_empleados[i][j] = n
+                        matriz_empleados[i][j] = {}
+                        for _ in range(n):
+                            ticket = crearTicket()
+                            # agrego el ticket usando su id como clave
+                            matriz_empleados[i][j][ticket['id']] = ticket
                         band = True
                     else:
                         print('Error - Ingrese un número entre 0 y 100.')
@@ -85,3 +89,11 @@ def cargar_tickets(matriz_empleados, ids):
                     print('Error - Ingrese un número positivo entre 0 y 100.')
 
 
+def crearTicket():
+    ticket_id = randint(10000, 99999) # agregar validacion para que revise las claves existentes en el diccionario
+    ticket = {
+        'id': ticket_id,
+        'descripcion': input(f'Ingrese la descripción del ticket {ticket_id}: '),
+        'monto': float(input('Ingrese el monto del ticket: '))
+    }
+    return ticket
