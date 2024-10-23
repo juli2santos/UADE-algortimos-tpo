@@ -39,24 +39,34 @@ def actualizar_tickets(matriz, ids):
             except ValueError:
                 print('Error - Mes inválido. Debe ingresar un valor entre 1 y 12: ')
 
-        while True:
-            try:        
-                cantidad = int(input("Ingrese la cantidad total de tickets: "))
-                if cantidad <= 0 and cantidad <= 100:
-                    cantidad = int(input("Error - Cantidad inválida. Ingrese un valor mayor a 0, y menor, o igual a 100")) 
-                    break 
-            except ValueError:
-                print ('"Error - Cantidad inválida. Ingrese un valor mayor a 0, y menor, o igual a 100"')
-        
-        matriz[ids.index(empleado)][
-            mes - 1
-        ] = cantidad  # mes -1 para ir al mes ingresado por el usuario por q la lista empieza de 0 sino da mal
+        # Me fijo si hay ticktes para ese empleado para ese mes
+        if len(matriz[ids.index(empleado)][mes - 1]) == 0:
+            print(f"No hay tickets registrados para el empleado {empleado} en el mes {mes}.")
+            continue
 
-        salida = int(
-            input(
-                "Ingrese 1 para continuar con otra carga, o ingrese cualquier otro número para regresar al menú: "
-            )
-        )
+        # muestro los tickets disponibles
+        print(f"Tickets para el empleado {empleado} en el mes {mes}:")
+        for ticket_id, ticket in matriz[ids.index(empleado)][mes - 1].items():
+            print(f"ID: {ticket_id}, Descripción: {ticket['descripcion']},Prioridad: {ticket["prioridad"]}")
+
+        # pido el ID del ticket a modificar
+        ticket_id = int(input("Ingrese el ID del ticket que desea modificar: "))
+        while ticket_id not in matriz[ids.index(empleado)][mes - 1]:
+            ticket_id = int(input("Error - ID de ticket inválido. Ingrese un ID de ticket existente: "))
+        
+        opcion = int(input("ingrese 1 si quiere modificar la descripcion o 2 si quiere modificar la prioridad"))
+        # Modificar los datos del ticket
+        if opcion == 1:
+            nuevaDesc = input("Nueva descripción: ")
+        else:
+            print()
+
+        # Actualizar el ticket
+        matriz[ids.index(empleado)][mes - 1][ticket_id]['descripcion'] = nuevaDesc
+
+        print(f"Ticket {ticket_id} actualizado correctamente.")
+
+        salida = int(input("Ingrese 1 para continuar con otra carga, o ingrese cualquier otro número para regresar al menú: "))
 
         if salida != 1:
             salir = True
