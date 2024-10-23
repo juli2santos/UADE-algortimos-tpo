@@ -5,8 +5,12 @@ def menu_login():
     print("1. Iniciar sesión.")
     print("2. Registrarse.")
     print("3. Salir.")
-    opcion = int(input("Ingrese el numero de la opcion: "))
-    return opcion
+    try:
+        opcion = int(input("Ingrese el numero de la opcion: "))
+        return opcion
+    except (ValueError):
+        print('-----------------------------------')
+        
 
 def registrar_usuario(usuarios, contrasenas, username, password):
     if username in usuarios:

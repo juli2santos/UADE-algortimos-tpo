@@ -1,12 +1,21 @@
 es_entero = lambda opcion, min_valor, max_valor: opcion.isdigit() and min_valor <= int(opcion) <= max_valor
 
 def validar_empleados():
-    total_empleados = int(input("Ingrese la cantidad de empleados "))
-    while total_empleados <= 0:
-        total_empleados = int(
-            input("Cantidad inválida. Ingrese la cantidad de empleados ")
-        )
-    return total_empleados
+    while True: 
+        try: 
+            total_empleados = int(input('Ingrese la cantidad de empleados'))
+            if total_empleados <= 0:
+                print('Cantidad inválida. Ingrese un número mayor a 0')
+            else: 
+                return total_empleados
+        except ValueError:
+            print('Entrada inválida. Debe ingresar un número entero')
+    # total_empleados = int(input("Ingrese la cantidad de empleados "))
+    # while total_empleados <= 0:
+    #     total_empleados = int(
+    #         input("Cantidad inválida. Ingrese la cantidad de empleados ")
+    #     )
+    # return total_empleados
 
 es_entero_positivo = lambda valor: valor.isdigit() and int(valor) >= 0
 
