@@ -63,7 +63,7 @@ def mostrar_tickets(matriz_empleados, columnas, ids):
     for i in range(len(matriz_empleados)):
         print(f'Empleado {ids[i]:<6}', end='')
         for j in range(columnas):
-            print(f"{matriz_empleados[i][j]:^6}", end="")
+            print(f"{len(matriz_empleados[i][j]):^6}", end="")
         print()
 
 def cargar_tickets(matriz_empleados, ids):
