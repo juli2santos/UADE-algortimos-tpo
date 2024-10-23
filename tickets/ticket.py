@@ -18,28 +18,36 @@ def actualizar_tickets(matriz, ids):
 
     while not salir:
 
-        empleado = int(
-            input("Ingrese el ID del empleado al que desea modificarle un ticket: ")
-        )
-        while empleado not in ids:
-            empleado = int(
-                input("Error - ID de empleado inválido. Intente con un ID existente: ")
-            )
+        while True:
+            try:
+                empleado = int(input("Ingrese el ID del empleado al que desea modificarle un ticket: "))
+                if empleado not in ids:
+                    raise ValueError("Error - ID de empleado inválido.")
+                break  # Salir del bucle si el ID es válido
+            except ValueError:
+                print('"Error - ID de empleado inválido."')
 
-        mes = int(input("Ingrese el mes (1-12) para el cual desea cargar el valor: "))
-        while mes < 1 or mes > 12:
-            mes = int(
-                input("Error - Mes inválido. Debe ingresar un valor entre 1 y 12: ")
-            )
 
-        cantidad = int(input("Ingrese la cantidad total de tickets: "))
-        while cantidad <= 0 and cantidad <= 100:
-            cantidad = int(
-                input(
-                    "Error - Cantidad inválida. Ingrese un valor mayor a 0, y menor, o igual a 100"
+        while True:
+            try:
+                mes = int(input("Ingrese el mes (1-12) para el cual desea cargar el valor: "))           
+                if mes < 1 or mes > 12:
+                    mes = int(
+                        input("Error - Mes inválido. Debe ingresar un valor entre 1 y 12: ")
                 )
-            )
+                break
+            except ValueError:
+                print('Error - Mes inválido. Debe ingresar un valor entre 1 y 12: ')
 
+        while True:
+            try:        
+                cantidad = int(input("Ingrese la cantidad total de tickets: "))
+                if cantidad <= 0 and cantidad <= 100:
+                    cantidad = int(input("Error - Cantidad inválida. Ingrese un valor mayor a 0, y menor, o igual a 100")) 
+                    break 
+            except ValueError:
+                print ('"Error - Cantidad inválida. Ingrese un valor mayor a 0, y menor, o igual a 100"')
+        
         matriz[ids.index(empleado)][
             mes - 1
         ] = cantidad  # mes -1 para ir al mes ingresado por el usuario por q la lista empieza de 0 sino da mal
