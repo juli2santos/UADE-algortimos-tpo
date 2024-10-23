@@ -9,7 +9,6 @@ def main():
     usuarios = ["usuario1", "usuario2"]
     contrasenas = ["password1", "password2"]
 
-
     continuar = True
 
     while continuar:
@@ -32,9 +31,9 @@ def main():
 
                 if not ids:  # generacion de ids automaticamente post ingresar numero de empleados
                     generar_ids(len(matriz_empleados), ids)
-
+                tickets = []
                 """Menú principal para la gestión de tickets."""
-                menu(matriz_empleados, columnas, ids)
+                menu(matriz_empleados, columnas, ids, tickets)
             else:
                 print("Acceso denegado.")
         elif opcion == 2:

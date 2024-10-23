@@ -66,7 +66,7 @@ def mostrar_tickets(matriz_empleados, columnas, ids):
             print(f"{len(matriz_empleados[i][j]):^6}", end="")
         print()
 
-def cargar_tickets(matriz_empleados, ids):
+def cargar_tickets(matriz_empleados, ids, tickets):
     meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
     for i in range (len(matriz_empleados)):
         print(f'\n --- Empleado {ids[i]} ---')
@@ -79,7 +79,7 @@ def cargar_tickets(matriz_empleados, ids):
                     if 0 <= n <= 100:
                         matriz_empleados[i][j] = {}
                         for _ in range(n):
-                            ticket = crearTicket()
+                            ticket = crearTicket(tickets)
                             # agrego el ticket usando su id como clave
                             matriz_empleados[i][j][ticket['id']] = ticket
                         band = True
@@ -89,11 +89,31 @@ def cargar_tickets(matriz_empleados, ids):
                     print('Error - Ingrese un número positivo entre 0 y 100.')
 
 
-def crearTicket():
-    ticket_id = randint(10000, 99999) # agregar validacion para que revise las claves existentes en el diccionario
+from random import randint
+
+# Suponiendo que tienes un diccionario para almacenar tickets
+
+def crearTicket(tickets):
+    while True:
+        ticket_id = randint(10000, 99999)
+        if not any(ticket['id'] == ticket_id for ticket in tickets):
+            break
+
+    while True:
+        try:
+            descripcion = input(f'Ingrese la descripción del ticket {ticket_id}: ')
+            if not descripcion.strip(): 
+                raise ValueError('La descripción no puede estar vacía.')
+            break
+        except ValueError as error:
+            print(error)
+
     ticket = {
-        "id": ticket_id,
-        "descripcion": input(f'Ingrese la descripción del ticket {ticket_id}: '),
-        "fecha":"fecha"
+        'id': ticket_id,
+        'descripcion': descripcion,
+        'Fecha': 'Fecha' 
     }
+
+    tickets.append(ticket) 
     return ticket
+    

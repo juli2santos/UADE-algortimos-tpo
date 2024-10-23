@@ -40,12 +40,12 @@ def print_menu():
     print("4. Mostrar Tickets.")
     print("5. Salir.")
 
-def menu(matriz_empleados, columnas, ids):
+def menu(matriz_empleados, columnas, ids, tickets):
     print_menu()
     opcion = obtener_opcion()
     while opcion != 5:
         if opcion == 1:
-            cargar_tickets(matriz_empleados, ids)
+            cargar_tickets(matriz_empleados, ids, tickets)
             print_menu()
 
         elif opcion == 2:
