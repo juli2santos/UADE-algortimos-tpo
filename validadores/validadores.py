@@ -43,3 +43,15 @@ def opcion_desemp():
         print("Error. Debe ser un número entre 1 y 3.")
         opcion = input("Elige una opción (1-3): ")
     return int(opcion)
+
+def obtener_prioridad_valida(ticket_id):
+    # Validar que la prioridad ingresada esté en la lista permitida
+    prioridades_permitidas = ['baja', 'media', 'alta']
+    while True:
+        prioridad = input(f'Ingrese la prioridad del ticket {ticket_id} ({prioridades_permitidas}): ').strip().lower()
+        try:
+            if prioridad not in prioridades_permitidas:
+                raise ValueError(f'Error: "{prioridad}" no es una prioridad válida.')
+            return prioridad
+        except ValueError as mensajeError:
+            print(mensajeError)
