@@ -63,7 +63,7 @@ def mostrar_tickets(matriz_empleados, columnas, ids):
     for i in range(len(matriz_empleados)):
         print(f'Empleado {ids[i]:<6}', end='')
         for j in range(columnas):
-            print(f"{matriz_empleados[i][j]:^6}", end="")
+            print(f"{len(matriz_empleados[i][j]):^6}", end="")
         print()
 
 def cargar_tickets(matriz_empleados, ids):
@@ -92,8 +92,8 @@ def cargar_tickets(matriz_empleados, ids):
 def crearTicket():
     ticket_id = randint(10000, 99999) # agregar validacion para que revise las claves existentes en el diccionario
     ticket = {
-        'id': ticket_id,
-        'descripcion': input(f'Ingrese la descripción del ticket {ticket_id}: '),
-        'monto': float(input('Ingrese el monto del ticket: '))
+        "id": ticket_id,
+        "descripcion": input(f'Ingrese la descripción del ticket {ticket_id}: '),
+        "fecha":"fecha"
     }
     return ticket
