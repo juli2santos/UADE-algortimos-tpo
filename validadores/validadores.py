@@ -1,9 +1,10 @@
+from datetime import datetime
 es_entero = lambda opcion, min_valor, max_valor: opcion.isdigit() and min_valor <= int(opcion) <= max_valor
 
 def validar_empleados():
     while True: 
         try: 
-            total_empleados = int(input('Ingrese la cantidad de empleados'))
+            total_empleados = int(input('Ingrese la cantidad de empleados: '))
             if total_empleados <= 0:
                 print('Cantidad inválida. Ingrese un número mayor a 0')
             else: 
@@ -55,3 +56,26 @@ def obtener_prioridad_valida(ticket_id):
             return prioridad
         except ValueError as mensajeError:
             print(mensajeError)
+
+def obtener_dia_valido(ticket_id, mes):
+    while True:
+        dia_input = input(f'Ingrese el día del ticket {ticket_id} (1-31): ')
+        try:
+            dia = int(dia_input)
+            # Verificar si la combinación de día y mes es válida usando datetime
+            validar_fecha(mes, dia)  # Verifica la fecha
+            return dia
+        except ValueError as mensajeError:
+            if str(mensajeError) == "Día fuera del rango válido para el mes.":
+                print(f'Error: El día {dia} no es válido para el mes {mes}. Intente nuevamente.')
+            else:
+                print('Error: Debe ingresar un número válido. Intente nuevamente.')
+
+def validar_fecha(mes, dia):
+    # Usar el año actual para crear la fecha
+    try:
+        año_actual = datetime.now().year
+        fecha = datetime(año_actual, mes, dia)
+        return fecha  # Si se crea la fecha, es válida
+    except ValueError:
+        raise ValueError("Día fuera del rango válido para el mes.")

@@ -1,5 +1,5 @@
 from random import randint
-from validadores.validadores import es_entero_positivo,obtener_prioridad_valida
+from validadores.validadores import es_entero_positivo,obtener_prioridad_valida,obtener_dia_valido
 
 
 def generar_ids(total_empleados, ids):
@@ -79,7 +79,7 @@ def cargar_tickets(matriz_empleados, ids, tickets):
                     if 0 <= n <= 100:
                         matriz_empleados[i][j] = {}
                         for _ in range(n):
-                            ticket = crearTicket(tickets)
+                            ticket = crearTicket(tickets,j+1) # j + 1 para obtener el mes correcto
                             # agrego el ticket usando su id como clave
                             matriz_empleados[i][j][ticket['id']] = ticket
                         band = True
@@ -89,11 +89,10 @@ def cargar_tickets(matriz_empleados, ids, tickets):
                     print('Error - Ingrese un número positivo entre 0 y 100.')
 
 
-from random import randint
 
-# Suponiendo que tienes un diccionario para almacenar tickets
 
-def crearTicket(tickets):
+
+def crearTicket(tickets,mes):
     while True:
         ticket_id = randint(10000, 99999)
         if not any(ticket['id'] == ticket_id for ticket in tickets):
@@ -111,7 +110,7 @@ def crearTicket(tickets):
     ticket = {
         'id': ticket_id,
         'descripcion': descripcion,
-        'Fecha': 'Fecha',
+        'fecha': obtener_dia_valido(ticket_id,mes),
         "prioridad": obtener_prioridad_valida(ticket_id)
     }
 
