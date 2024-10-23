@@ -1,5 +1,5 @@
 from random import randint
-from validadores.validadores import es_entero_positivo, obtener_prioridad_valida
+from validadores.validadores import es_entero_positivo
 
 
 def generar_ids(total_empleados, ids):
@@ -109,10 +109,11 @@ def crearTicket(tickets):
             print(error)
 
     ticket = {
-        "id": ticket_id,
-        "descripcion": input(f'Ingrese la descripción del ticket {ticket_id}: '),
-        "fecha":"fecha"
+        'id': ticket_id,
+        'descripcion': descripcion,
+        'Fecha': 'Fecha' 
     }
 
     tickets.append(ticket) 
     return ticket
+    
