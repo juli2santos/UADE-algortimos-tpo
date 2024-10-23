@@ -1,19 +1,23 @@
 from validadores.validadores import opcion_mensual, opcion_desemp
 
+
+def sumaEmpleadosRecursivo(matriz_empleados, i=0):
+    if i == len(matriz_empleados):
+        return 0
+    else:
+        return sum(matriz_empleados[i]) + sumaEmpleadosRecursivo(matriz_empleados, i+1)
+
 def reporte_anual(matriz_empleados):
-    total_anual = 0
-
-    for i in range (len(matriz_empleados)):
-        total_anual += sum(matriz_empleados[i])
-
-    print(f'\n --- El total anual de tickets de todos los empleados es de {total_anual}. ---')
+    total = sumaEmpleadosRecursivo(matriz_empleados)
+    
+    print(f'\n --- El total anual de tickets de todos los empleados es de {total}. ---')
 
 def reporte_anual_individual(matriz_empleados, ids):
     print(f'\n --- IDs de los empleados: {ids}. ---')
     id_empleado = int(input("Ingrese el ID del empleado del cual desea generar el reporte anual: "))
 
     while id_empleado not in ids:
-     id_empleado = int(input('Error - ID inexistente. Ingrese un ID valido: '))
+        id_empleado = int(input('Error - ID inexistente. Ingrese un ID valido: '))
 
     ind_empleado = ids.index(id_empleado)
 
@@ -60,6 +64,7 @@ def reporte_mensual(matriz_empleados, ids):
         print(f'\n --- El total de tickets mensual del mes {mes}, del empleado {id_empleado} es de {total_mensual}. ---')
 
 
+
 def reporte_desemp_empleados(matriz_empleados, ids):
     print('1. Reporte del Mejor Desempeño de Tickets de Empleado')
     print('2. Reporte del Peor Desempeño de Tickets de Empleado')
@@ -95,13 +100,16 @@ def reporte_desemp_empleados(matriz_empleados, ids):
         print(f'\n --- ID(s) de los empleado(s) con el peor desempeño: {peor_desemp}. ---')
 
     elif opcion == 3:
-        total = 0
-        total_empleados = len(matriz_empleados)
-
-        for i in range(total_empleados):
-            total += sum(matriz_empleados[i])
-        
-        promedio_total = total / total_empleados if total_empleados > 0 else 0
+        total_tickets = sumaEmpleadosRecursivo(matriz_empleados)
+        promedio_total = total_tickets / len(matriz_empleados) if len(matriz_empleados) > 0 else 0
         print(f'\n --- El promedio total de tickets es de: {promedio_total}. ---')
+        # total = 0
+        # total_empleados = len(matriz_empleados)
+
+        # for i in range(total_empleados):
+        #     total += sum(matriz_empleados[i])
+        
+        # promedio_total = total / total_empleados if total_empleados > 0 else 0
+        # print(f'\n --- El promedio total de tickets es de: {promedio_total}. ---')
     
 
