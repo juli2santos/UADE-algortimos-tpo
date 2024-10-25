@@ -1,6 +1,6 @@
 from tickets.ticket import *
 from validadores.validadores import obtener_opcion
-from reportes.reportes import reporte_anual, reporte_anual_individual, reporte_mensual, reporte_desemp_empleados
+from reportes.reportes import reporte_anual, reporte_anual_individual, reporte_mensual, reporte_desemp_empleados, mostrar_reporte_detallado
 
 def print_submenu():
     print("\n --- Submenú Reportes ---")
@@ -14,7 +14,7 @@ def sub_menu_reportes(matriz_empleados, ids):
     print_submenu()
 
     opcion = obtener_opcion()
-    while opcion != 5:
+    while opcion != 6:
         if opcion == 1:
             reporte_anual(matriz_empleados)
             print_submenu()
@@ -28,6 +28,8 @@ def sub_menu_reportes(matriz_empleados, ids):
         elif opcion == 4:
             reporte_desemp_empleados(matriz_empleados, ids)
             print_submenu()
+        elif opcion == 5:
+            mostrar_reporte_detallado(matriz_empleados, ids)
         else:
             print("opcion no valida")
         opcion = obtener_opcion()
