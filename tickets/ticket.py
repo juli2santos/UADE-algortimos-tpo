@@ -58,12 +58,12 @@ def actualizar_tickets(matriz, ids):
         # Modificar los datos del ticket
         if opcion == 1:
             nuevaDesc = input("Nueva descripción: ")
+            matriz[ids.index(empleado)][mes - 1][ticket_id]['descripcion'] = nuevaDesc.strip()
         else:
-            print()
-
-        # Actualizar el ticket
-        matriz[ids.index(empleado)][mes - 1][ticket_id]['descripcion'] = nuevaDesc
-
+            nuevaPrioridad = obtener_prioridad_valida(ticket_id)
+            matriz[ids.index(empleado)][mes - 1][ticket_id]['prioridad'] = nuevaPrioridad
+        
+        
         print(f"Ticket {ticket_id} actualizado correctamente.")
 
         salida = int(input("Ingrese 1 para continuar con otra carga, o ingrese cualquier otro número para regresar al menú: "))
