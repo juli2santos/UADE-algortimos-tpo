@@ -42,12 +42,13 @@ def print_menu():
     print("2. Modificar Tickets.")
     print("3. Generar Reporte.")
     print("4. Mostrar Tickets.")
-    print("5. Salir.")
+    print("5. Generar carga inicial")
+    print("6. Salir.")
 
 def menu(matriz_empleados, columnas, ids, tickets):
     print_menu()
     opcion = obtener_opcion()
-    while opcion != 5:
+    while opcion != 6:
         if opcion == 1:
             cargar_tickets(matriz_empleados, ids, tickets)
             print_menu()
@@ -62,7 +63,7 @@ def menu(matriz_empleados, columnas, ids, tickets):
         elif opcion == 4:
             mostrar_tickets(matriz_empleados, columnas, ids)
             print_menu()
-        if opcion == 6:
+        if opcion == 5:
             generarCargaInicial(matriz_empleados, ids, tickets)
             print_menu()
         else:
