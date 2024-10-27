@@ -8,7 +8,8 @@ def print_submenu():
     print("2. Reporte Anual Individual")
     print("3. Reporte Mensual")
     print("4. Reporte de Desempeño de Empleados")
-    print("5. Salir")
+    print("5. Reporte detallado de tickets")
+    print("6. Salir")
 
 def sub_menu_reportes(matriz_empleados, ids):
     print_submenu()
@@ -30,6 +31,7 @@ def sub_menu_reportes(matriz_empleados, ids):
             print_submenu()
         elif opcion == 5:
             mostrar_reporte_detallado(matriz_empleados, ids)
+            print_submenu()
         else:
             print("opcion no valida")
         opcion = obtener_opcion()
@@ -60,7 +62,9 @@ def menu(matriz_empleados, columnas, ids, tickets):
         elif opcion == 4:
             mostrar_tickets(matriz_empleados, columnas, ids)
             print_menu()
-
+        if opcion == 6:
+            generarCargaInicial(matriz_empleados, ids, tickets)
+            print_menu()
         else:
             print("Opcion no valida")
         opcion = obtener_opcion()

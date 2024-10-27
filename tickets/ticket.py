@@ -1,4 +1,4 @@
-from random import randint
+from random import *
 from validadores.validadores import es_entero_positivo,obtener_prioridad_valida,obtener_dia_valido
 
 
@@ -88,6 +88,7 @@ def cargar_tickets(matriz_empleados, ids, tickets):
     meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
     for i in range (len(matriz_empleados)):
         print(f'\n --- Empleado {ids[i]} ---')
+
         for j in range(len(matriz_empleados[0])):
             band = False
             while not band:
@@ -95,7 +96,8 @@ def cargar_tickets(matriz_empleados, ids, tickets):
                 if es_entero_positivo(n):
                     n = int(n) 
                     if 0 <= n <= 100:
-                        matriz_empleados[i][j] = {}
+                        if not matriz_empleados[i][j]:  # Solo genero el nuevo diccionario si está vacio ese index
+                            matriz_empleados[i][j] = {}
                         for _ in range(n):
                             ticket = crearTicket(tickets,j+1) # j + 1 para obtener el mes correcto
                             # agrego el ticket usando su id como clave
@@ -105,7 +107,14 @@ def cargar_tickets(matriz_empleados, ids, tickets):
                         print('Error - Ingrese un número entre 0 y 100.')
                 else:
                     print('Error - Ingrese un número positivo entre 0 y 100.')
-
+        
+            siguienteMes = input("¿Quiere cargar tickets para el siguiente mes? (s/n): ").strip().lower() # valido si quiere cargar ticktes para otro mes
+            if siguienteMes != 's':
+                break
+        
+        siguienteEmpleado = input("¿Quiere continuar con otro empleado? (s/n): ").strip().lower() # valido si quiere cargar ticktes para otro empleado
+        if siguienteEmpleado != 's':
+            break
 
 
 
@@ -135,3 +144,27 @@ def crearTicket(tickets,mes):
     tickets.append(ticket) 
     return ticket
     
+def generarCargaInicial (matriz_empleados, ids, tickets):
+    meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
+    for i in range (len(matriz_empleados)):
+        for j in range(len(matriz_empleados[0])):
+            band = False
+            while not band:
+                n = 5
+                matriz_empleados[i][j] = {}
+                for k in range(n):
+                    while True:
+                        ticket_id = randint(10000, 99999)
+                        if not any(ticket['id'] == ticket_id for ticket in tickets):
+                            break
+                    ticket = {
+                        'id': ticket_id,
+                        'descripcion': f'TEST - {ticket_id}',
+                        'fecha': f'2024-{j}-{k+1}',
+                        "prioridad": choice(['baja','media','alta'])
+                        }
+                    tickets.append(ticket) 
+                    matriz_empleados[i][j][ticket['id']] = ticket
+                    band = True
+    print("Carga incial finalizada")
+                
