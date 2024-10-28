@@ -118,23 +118,35 @@ def reporte_mensual(matriz_empleados, ids):
         print(f'\n --- El total de tickets mensual del mes {mes} es de {total_mensual}. ---')
 
     elif opcion == 2:
-        print(f'\n --- IDs de empleados: {ids} ---')
-        id_empleado = int(input('Ingrese el ID del empleado que desea solicitar su reporte mensual: '))
-        
-        while id_empleado not in ids:
-            id_empleado = int(input('Error - ID inexistente. Ingrese un ID valido: '))
+        while True:    
+            try:
+                print(f'\n --- IDs de empleados: {ids} ---')
+                id_empleado = int(input('Ingrese el ID del empleado que desea solicitar su reporte mensual: '))
+                            
+                while id_empleado not in ids:
+                    id_empleado = int(input('Error - ID inexistente. Ingrese un ID valido: '))
 
-        ind_empleado = ids.index(id_empleado)
+                ind_empleado = ids.index(id_empleado)
+            
+                while True:
+                    try:
+                        mes = int(input('Ingrese el mes (1-12) para el cual desea recibir el reporte de tickets: '))
+                        while mes < 1 or mes > 12:
+                            mes = int(input("Error - Mes inválido. Debe ingresar un valor entre 1 y 12: "))        
+                            
+                        mes_ind = mes - 1
+                        total_mensual = 0
+                                
+                        total_mensual += len(matriz_empleados[ind_empleado][mes_ind])
+                        print(f'\n --- El total de tickets mensual del mes {mes}, del empleado {id_empleado} es de {total_mensual}. ---')
+                        break
 
-        mes = int(input('Ingrese el mes (1-12) para el cual desea recibir el reporte de tickets: '))
-        while mes < 1 or mes > 12:
-            mes = int(input("Error - Mes inválido. Debe ingresar un valor entre 1 y 12: "))        
+                    except ValueError:
+                        print("Error - Por favor ingrese un número válido para el mes.")
+                break
+            except ValueError:
+                print("Error - Por favor ingrese un número válido para el ID del empleado.")  
 
-        mes_ind = mes - 1
-        total_mensual = 0
-        
-        total_mensual += len(matriz_empleados[ind_empleado][mes_ind])
-        print(f'\n --- El total de tickets mensual del mes {mes}, del empleado {id_empleado} es de {total_mensual}. ---')
 
     elif opcion == 3:
         try:  

@@ -197,5 +197,5 @@ def generarCargaInicial (matriz_empleados, ids, tickets):
                     tickets.append(ticket) 
                     matriz_empleados[i][j][ticket['id']] = ticket
                     band = True
-    print("Carga incial finalizada")
+    print("Carga inicial finalizada")
                 
