@@ -26,12 +26,7 @@ def validar_empleados():
                 return total_empleados
         except ValueError:
             print('Entrada inválida. Debe ingresar un número entero')
-    # total_empleados = int(input("Ingrese la cantidad de empleados "))
-    # while total_empleados <= 0:
-    #     total_empleados = int(
-    #         input("Cantidad inválida. Ingrese la cantidad de empleados ")
-    #     )
-    # return total_empleados
+
 
 es_entero_positivo = lambda valor: valor.isdigit() and int(valor) >= 0
 
@@ -45,7 +40,7 @@ def obtener_opcion():
         opcion = input("Elige una opción (1-6): ")
     return int(opcion)
 
-def opcion_mensual():
+def opcion_reutilizable():
     opcion = input('Elige una opción (1-3): ')
     while not validar_opcion(opcion, 1, 3):
         print("Error. Debe ser un número entre 1 y 3.")
@@ -53,11 +48,11 @@ def opcion_mensual():
     return int(opcion)
 
 
-def opcion_desemp():
-    opcion = input('Elige una opción (1-3): ')
-    while not validar_opcion(opcion, 1, 3):
-        print("Error. Debe ser un número entre 1 y 3.")
-        opcion = input("Elige una opción (1-3): ")
+def opcion_reporte():
+    opcion = input('Elige una opción (1-2): ')
+    while not validar_opcion(opcion, 1, 2):
+        print("Error. Debe ser un número entre 1 y 2.")
+        opcion = input("Elige una opción (1-2): ")
     return int(opcion)
 
 def obtener_prioridad_valida(ticket_id):

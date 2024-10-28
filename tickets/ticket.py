@@ -1,4 +1,4 @@
-from random import *
+from random import randint, choice
 from validadores.validadores import es_entero_positivo,obtener_prioridad_valida,obtener_dia_valido
 
 
@@ -43,28 +43,31 @@ def actualizar_tickets(matriz, ids):
         if len(matriz[ids.index(empleado)][mes - 1]) == 0:
             print(f"No hay tickets registrados para el empleado {empleado} en el mes {mes}.")
             continue
+        try:
+            # muestro los tickets disponibles
+            print(f"Tickets para el empleado {empleado} en el mes {mes}:")
+            for ticket_id, ticket in matriz[ids.index(empleado)][mes - 1].items():
+                print(f"ID: {ticket_id}, Descripción: {ticket['descripcion']},Prioridad: {ticket["prioridad"]}")
 
-        # muestro los tickets disponibles
-        print(f"Tickets para el empleado {empleado} en el mes {mes}:")
-        for ticket_id, ticket in matriz[ids.index(empleado)][mes - 1].items():
-            print(f"ID: {ticket_id}, Descripción: {ticket['descripcion']},Prioridad: {ticket["prioridad"]}")
-
-        # pido el ID del ticket a modificar
-        ticket_id = int(input("Ingrese el ID del ticket que desea modificar: "))
-        while ticket_id not in matriz[ids.index(empleado)][mes - 1]:
-            ticket_id = int(input("Error - ID de ticket inválido. Ingrese un ID de ticket existente: "))
-        
-        opcion = int(input("ingrese 1 si quiere modificar la descripcion o 2 si quiere modificar la prioridad"))
-        # Modificar los datos del ticket
-        if opcion == 1:
-            nuevaDesc = input("Nueva descripción: ")
-            matriz[ids.index(empleado)][mes - 1][ticket_id]['descripcion'] = nuevaDesc.strip()
-        else:
-            nuevaPrioridad = obtener_prioridad_valida(ticket_id)
-            matriz[ids.index(empleado)][mes - 1][ticket_id]['prioridad'] = nuevaPrioridad
-        
+            # pido el ID del ticket a modificar
+            ticket_id = int(input("Ingrese el ID del ticket que desea modificar: "))
+            while ticket_id not in matriz[ids.index(empleado)][mes - 1]:
+                ticket_id = int(input("Error - ID de ticket inválido. Ingrese un ID de ticket existente: "))
+            
+            opcion = int(input("ingrese 1 si quiere modificar la descripcion o 2 si quiere modificar la prioridad"))
+            # Modificar los datos del ticket
+            if opcion == 1:
+                nuevaDesc = input("Nueva descripción: ")
+                matriz[ids.index(empleado)][mes - 1][ticket_id]['descripcion'] = nuevaDesc.strip()
+            else:
+                nuevaPrioridad = obtener_prioridad_valida(ticket_id)
+                matriz[ids.index(empleado)][mes - 1][ticket_id]['prioridad'] = nuevaPrioridad
+                
+        except ValueError:
+            print('Error - Ingrese un número válido')   
         
         print(f"Ticket {ticket_id} actualizado correctamente.")
+        print(f"\n --- IDs de los empleados: {ids} ---")
 
         salida = int(input("Ingrese 1 para continuar con otra carga, o ingrese cualquier otro número para regresar al menú: "))
 
@@ -73,6 +76,7 @@ def actualizar_tickets(matriz, ids):
 
 
 def mostrar_tickets(matriz_empleados, columnas, ids):
+
     meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
     header = ' ' * 15 + ''.join([f"{mes:5}|" for mes in meses])
     print(header)
@@ -143,6 +147,33 @@ def crearTicket(tickets,mes):
 
     tickets.append(ticket) 
     return ticket
+    
+
+
+def generarCargaInicial (matriz_empleados, ids, tickets):
+    meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
+    for i in range (len(matriz_empleados)):
+        for j in range(len(matriz_empleados[0])):
+            band = False
+            while not band:
+                n = 5
+                matriz_empleados[i][j] = {}
+                for k in range(n):
+                    while True:
+                        ticket_id = randint(10000, 99999)
+                        if not any(ticket['id'] == ticket_id for ticket in tickets):
+                            break
+                    ticket = {
+                        'id': ticket_id,
+                        'descripcion': f'TEST - {ticket_id}',
+                        'fecha': f'2024-{j}-{k+1}',
+                        "prioridad": choice(['baja','media','alta'])
+                        }
+                    tickets.append(ticket) 
+                    matriz_empleados[i][j][ticket['id']] = ticket
+                    band = True
+    print("Carga incial finalizada")
+                
     
 def generarCargaInicial (matriz_empleados, ids, tickets):
     meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']

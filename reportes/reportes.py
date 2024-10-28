@@ -1,19 +1,27 @@
-from validadores.validadores import opcion_mensual, opcion_desemp
-from archivoSalida.archivos import exportar_tickets_csv
+from validadores.validadores import opcion_reutilizable, opcion_reporte
+from archivoSalida.archivos import exportar_tickets_csv, exportar_tickets_empleado_csv, exportar_tickets_mes_csv
+
+
+#SEGUIR AGREGANDO TRY-EXCEPT PARA CASOS EN LOS QUE NO HAYA CARGA INICIAL EN LAS SUMAS POR EJ DE REPORTE ANUAL INDIVIDUAL, SUM(LEN(MATRIZ_EMPLEADOS))
+
 
 def sumaEmpleadosRecursivo(matriz_empleados, i=0):
-    if i == len(matriz_empleados):
-        return 0
-    else:
-        total_tickets = sum(len(matriz_empleados[i][j]) for j in range(12))
-        return total_tickets + sumaEmpleadosRecursivo(matriz_empleados, i+1)
+    try:
+        if i == len(matriz_empleados):
+            return 0
+        else:
+            total_tickets = sum(len(matriz_empleados[i][j]) for j in range(12))
+            return total_tickets + sumaEmpleadosRecursivo(matriz_empleados, i+1)
+    except IndexError:
+        print('Error - Matriz Vacia')
+        return 0 
+    except TypeError:
+        print('Error - Matriz Vacia')
+        return 0 
+    except Exception:
+        print('Error Inesperado')
+        return 0 
 
-def reporte_anual(matriz_empleados):
-    total = sumaEmpleadosRecursivo(matriz_empleados)
-    
-    print(f'\n --- El total anual de tickets de todos los empleados es de {total}. ---')
-
-#-------------------------Prueba--------------------------------------------------------------------
 
 def mostrar_reporte_detallado(matriz_empleados, ids):
     meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
@@ -36,28 +44,66 @@ def mostrar_reporte_detallado(matriz_empleados, ids):
 
     print("\n--- Fin del Reporte ---")
 
-#----------------------------------------------------------------------------------------------
+def reporte_anual(matriz_empleados, ids):
+    total = sumaEmpleadosRecursivo(matriz_empleados)
+    print(f'\n --- El total anual de tickets de todos los empleados es de {total}. ---')
+    print('\n Seleccione el tipo de salida que desea para recibir los detalles de los tickets: ')
+    print('1. Mostrar en Consola')
+    print('2. Exportar a CSV')
+    try:
+        opcion = opcion_reporte()
+        if opcion == 1:
+            mostrar_reporte_detallado(matriz_empleados, ids)
+        elif opcion == 2:
+            archivo_salida = input("Ingrese el nombre del archivo CSV (por defecto: 'tickets.csv'): ") or "tickets.csv"
+            exportar_tickets_csv(matriz_empleados, ids, archivo_salida)
+    except ValueError:
+        print('')
 
 def reporte_anual_individual(matriz_empleados, ids):
-    print(f'\n --- IDs de los empleados: {ids}. ---')
-    id_empleado = int(input("Ingrese el ID del empleado del cual desea generar el reporte anual: "))
+    print('1. Mostrar reporte por consola')
+    print('2. Exportar reporte detallado a un archivo CSV')
+    opcion = opcion_reporte()
+    
+    while True:
+        try:
+            if opcion == 1:
+                print(f'\n --- IDs de los empleados: {ids}. ---')
+                id_empleado = int(input("Ingrese el ID del empleado del cual desea generar el reporte anual: "))
 
-    while id_empleado not in ids:
-        id_empleado = int(input('Error - ID inexistente. Ingrese un ID valido: '))
+                while id_empleado not in ids:
+                    id_empleado = int(input('Error - ID inexistente. Ingrese un ID valido: '))
 
-    ind_empleado = ids.index(id_empleado)
+                ind_empleado = ids.index(id_empleado)
 
-    total_anual = sum(len(matriz_empleados[ind_empleado][j]) for j in range(12))
+                total_anual = sum(len(matriz_empleados[ind_empleado][j]) for j in range(12))
 
-    print(f'\n --- El total anual de tickets del empleado {id_empleado} es de {total_anual}. ---')
+                print(f'\n --- El total anual de tickets del empleado {id_empleado} es de {total_anual}. ---')
+                break
+
+            elif opcion == 2:
+                print(f'\n --- IDs de los empleados: {ids}. ---')
+                id_empleado = int(input("Ingrese el ID del empleado: "))
+                if id_empleado in ids:
+                    archivo_salida = input("Ingrese el nombre del archivo CSV (por defecto: 'reporteEmpleado.csv'): ") or "reporteempleado.csv"
+                    try:
+                        exportar_tickets_empleado_csv(matriz_empleados, id_empleado, ids, archivo_salida)
+                    except Exception:
+                        print('Error - No se pudo generar el archivo CSV')
+                else:
+                    print(f"Error: No se encontró el empleado con ID {id_empleado}.")
+                break
+
+        except ValueError:
+            print('Error - Por favor, ingrese un número válido.')
 
 
 def reporte_mensual(matriz_empleados, ids): 
     print('\n-----------------------')
     print('1. Reporte Mensual de Todos los Empleados')
     print('2. Reporte Mensual Individual')
-    print('3. Exportar Reporte Mensual a CSV')
-    opcion = opcion_mensual()
+    print('3. Exportar Reporte Individual detallado a CSV')
+    opcion = opcion_reutilizable()
 
     if opcion == 1:
         mes = int(input('Ingrese el mes (1-12) para el cual desea recibir el reporte de tickets: '))
@@ -91,15 +137,31 @@ def reporte_mensual(matriz_empleados, ids):
         print(f'\n --- El total de tickets mensual del mes {mes}, del empleado {id_empleado} es de {total_mensual}. ---')
 
     elif opcion == 3:
-        archivo_salida = input("Ingrese el nombre del archivo CSV (por defecto: 'tickets.csv'): ") or "tickets.csv"
-        exportar_tickets_csv(matriz_empleados, ids, archivo_salida)
+        try:  
+            print(f'\n --- IDs de empleados: {ids} ---')  
+            id_empleado = int(input('Ingrese el ID del empleado que desea solicitar su reporte mensual: '))
+            while id_empleado not in ids:
+                id_empleado = int(input('Error - ID inexistente. Ingrese un ID valido: '))
 
+            try:
+                mes = int(input('Ingrese el mes (1-12) para el cual desea recibir el reporte de tickets: '))
+                while mes < 1 or mes > 12:
+                    mes = int(input("Error - Mes inválido. Debe ingresar un valor entre 1 y 12: "))  
+
+                archivo_salida = input("Ingrese el nombre del archivo CSV (por defecto: 'reporte.csv'): ") or "reporte.csv"
+                exportar_tickets_mes_csv(matriz_empleados, mes, id_empleado, ids, archivo_salida)
+                
+            except ValueError:
+                print("Error - Por favor ingrese un número válido para el mes.")
+                
+        except Exception:
+            print('Error Inesperado')
 
 def reporte_desemp_empleados(matriz_empleados, ids):
     print('1. Reporte del Mejor Desempeño de Tickets de Empleado')
     print('2. Reporte del Peor Desempeño de Tickets de Empleado')
     print('3. Reporte del Promedio de Tickets Total de Todos los Empleados')
-    opcion = opcion_desemp()
+    opcion = opcion_reutilizable()
 
 
     if opcion == 1:
@@ -134,12 +196,4 @@ def reporte_desemp_empleados(matriz_empleados, ids):
         total_tickets = sumaEmpleadosRecursivo(matriz_empleados)
         promedio_total = total_tickets / len(matriz_empleados) if len(matriz_empleados) > 0 else 0
         print(f'\n --- El promedio total de tickets es de: {promedio_total}. ---')
-        # total = 0
-        # total_empleados = len(matriz_empleados)
-
-        # for i in range(total_empleados):
-        #     total += sum(matriz_empleados[i])
-        
-        # promedio_total = total / total_empleados if total_empleados > 0 else 0
-        # print(f'\n --- El promedio total de tickets es de: {promedio_total}. ---')
     
