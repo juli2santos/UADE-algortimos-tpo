@@ -49,7 +49,7 @@ def reporte_anual(matriz_empleados, ids):
         if opcion == 1:
             mostrar_reporte_detallado(matriz_empleados, ids)
         elif opcion == 2:
-            archivo_salida = input("Ingrese el nombre del archivo CSV (por defecto: 'tickets.csv'): ") or "tickets.csv"
+            archivo_salida = input("Ingrese el nombre del archivo CSV (por defecto: 'reporteAnual.csv'): ") or "reporteAnual.csv"
             exportar_matriz_empleados_csv(matriz_empleados, ids, archivo_salida)
     except ValueError:
         print('')
@@ -79,7 +79,7 @@ def reporte_anual_individual(matriz_empleados, ids):
                 print(f'\n --- IDs de los empleados: {ids}. ---')
                 id_empleado = int(input("Ingrese el ID del empleado: "))
                 if id_empleado in ids:
-                    archivo_salida = input("Ingrese el nombre del archivo CSV (por defecto: 'reporteEmpleado.csv'): ") or "reporteempleado.csv"
+                    archivo_salida = input("Ingrese el nombre del archivo CSV (por defecto: 'reporteAnualEmpleado.csv'): ") or "reporteAnualEmpleado.csv"
                     try:
                         exportar_tickets_empleado_csv(matriz_empleados, id_empleado, ids, archivo_salida)
                     except Exception:
@@ -153,7 +153,7 @@ def reporte_mensual(matriz_empleados, ids):
                 while mes < 1 or mes > 12:
                     mes = int(input("Error - Mes inválido. Debe ingresar un valor entre 1 y 12: "))  
 
-                archivo_salida = input("Ingrese el nombre del archivo CSV (por defecto: 'reporte.csv'): ") or "reporte.csv"
+                archivo_salida = input("Ingrese el nombre del archivo CSV (por defecto: 'reporteMensualEmpleado.csv'): ") or "reporteMensualEmpleado.csv"
                 exportar_tickets_mes_csv(matriz_empleados, mes, id_empleado, ids, archivo_salida)
                 
             except ValueError:

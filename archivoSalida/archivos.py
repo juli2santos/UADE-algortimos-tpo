@@ -1,6 +1,6 @@
 import csv
 
-def exportar_tickets_csv(matriz_empleados, ids, archivo_salida="tickets.csv"):
+def exportar_tickets_csv(matriz_empleados, ids, archivo_salida="reporteTickets.csv"):
     meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
     try:
         with open(archivo_salida, mode='w', newline='') as archivo_csv:
@@ -26,7 +26,7 @@ def exportar_tickets_csv(matriz_empleados, ids, archivo_salida="tickets.csv"):
     except Exception:
         print("Error al generar el archivo CSV")
 
-def exportar_matriz_empleados_csv(matriz_empleados, ids, archivo_salida="tickets.csv"):
+def exportar_matriz_empleados_csv(matriz_empleados, ids, archivo_salida="reporteAnual.csv"):
     meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
     columnas = len(meses)
 
@@ -51,7 +51,7 @@ def exportar_matriz_empleados_csv(matriz_empleados, ids, archivo_salida="tickets
     except Exception:
         print("Error al generar el archivo CSV")
 
-def exportar_tickets_empleado_csv(matriz_empleados, id_empleado, ids, archivo_salida="reporte_empleado.csv"):
+def exportar_tickets_empleado_csv(matriz_empleados, id_empleado, ids, archivo_salida="reporteAnualEmpleado.csv"):
     meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
     
     if id_empleado not in ids:
@@ -84,7 +84,7 @@ def exportar_tickets_empleado_csv(matriz_empleados, id_empleado, ids, archivo_sa
         print(f"Error - No se pudo generar el archivo CSV para el empleado {id_empleado}")
 
 
-def exportar_tickets_mes_csv(matriz_empleados, mes, id_empleado, ids, archivo_salida="reporte_mes.csv"):
+def exportar_tickets_mes_csv(matriz_empleados, mes, id_empleado, ids, archivo_salida="reporteMensualEmpleado.csv"):
     meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
     
     if mes < 1 or mes > 12:
