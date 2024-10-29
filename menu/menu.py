@@ -30,7 +30,11 @@ def sub_menu_reportes(matriz_empleados, ids):
             reporte_desemp_empleados(matriz_empleados, ids)
             print_submenu()
         elif opcion == 5:
+<<<<<<< Updated upstream
             mostrar_reporte_detallado(matriz_empleados, ids)
+=======
+            exportar_tickets_csv(matriz_empleados, ids,archivo_salida='reporteDetallado.csv')
+>>>>>>> Stashed changes
             print_submenu()
         else:
             print("opcion no valida")
