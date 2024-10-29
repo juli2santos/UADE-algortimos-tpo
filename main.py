@@ -27,8 +27,8 @@ def main():
                 ids = []  # lista de ids para empleados
 
                 for f in range(filas):
-                    matriz_empleados.append([[] for j in range(columnas)])
-                    # matriz_empleados.append([0] * columnas)  # creacion de matriz de forma dinamica
+                    matriz_empleados.append([[] for j in range(columnas)]) # creacion de matriz de forma dinamica
+                    # matriz_empleados.append([0] * columnas) 
 
                 if not ids:  # generacion de ids automaticamente post ingresar numero de empleados
                     generar_ids(len(matriz_empleados), ids)

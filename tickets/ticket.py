@@ -47,14 +47,14 @@ def actualizar_tickets(matriz, ids):
             # muestro los tickets disponibles
             print(f"Tickets para el empleado {empleado} en el mes {mes}:")
             for ticket_id, ticket in matriz[ids.index(empleado)][mes - 1].items():
-                print(f"ID: {ticket_id}, Descripción: {ticket['descripcion']},Prioridad: {ticket["prioridad"]}")
+                print(f"ID: {ticket_id}, Descripción: {ticket['descripcion']}, Prioridad: {ticket["prioridad"]}")
 
             # pido el ID del ticket a modificar
             ticket_id = int(input("Ingrese el ID del ticket que desea modificar: "))
             while ticket_id not in matriz[ids.index(empleado)][mes - 1]:
                 ticket_id = int(input("Error - ID de ticket inválido. Ingrese un ID de ticket existente: "))
             
-            opcion = int(input("ingrese 1 si quiere modificar la descripcion o 2 si quiere modificar la prioridad"))
+            opcion = int(input("Ingrese 1 si quiere modificar la descripción o 2 si quiere modificar la prioridad"))
             # Modificar los datos del ticket
             if opcion == 1:
                 nuevaDesc = input("Nueva descripción: ")
@@ -197,5 +197,5 @@ def generarCargaInicial (matriz_empleados, ids, tickets):
                     tickets.append(ticket) 
                     matriz_empleados[i][j][ticket['id']] = ticket
                     band = True
-    print("Carga inicial finalizada")
+    print("Carga inicial finalizada.")
                 

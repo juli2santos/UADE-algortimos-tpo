@@ -1,9 +1,5 @@
 from validadores.validadores import opcion_reutilizable, opcion_reporte
-from archivoSalida.archivos import exportar_tickets_csv, exportar_tickets_empleado_csv, exportar_tickets_mes_csv
-
-
-#SEGUIR AGREGANDO TRY-EXCEPT PARA CASOS EN LOS QUE NO HAYA CARGA INICIAL EN LAS SUMAS POR EJ DE REPORTE ANUAL INDIVIDUAL, SUM(LEN(MATRIZ_EMPLEADOS))
-
+from archivoSalida.archivos import exportar_matriz_empleados_csv, exportar_tickets_empleado_csv, exportar_tickets_mes_csv
 
 def sumaEmpleadosRecursivo(matriz_empleados, i=0):
     try:
@@ -28,7 +24,6 @@ def mostrar_reporte_detallado(matriz_empleados, ids):
 
     for i, id_empleado in enumerate(ids):
         print(f"\n--- Reporte Detallado para Empleado {id_empleado} ---")
-        
         for j, mes in enumerate(meses):
             tickets_mes = matriz_empleados[i][j]
             if tickets_mes:
@@ -41,7 +36,6 @@ def mostrar_reporte_detallado(matriz_empleados, ids):
                     print(f"    Prioridad: {ticket_info.get('prioridad', '')}")
             else:
                 print(f"\nMes: {mes} - No hay tickets registrados.")
-
     print("\n--- Fin del Reporte ---")
 
 def reporte_anual(matriz_empleados, ids):
@@ -56,7 +50,7 @@ def reporte_anual(matriz_empleados, ids):
             mostrar_reporte_detallado(matriz_empleados, ids)
         elif opcion == 2:
             archivo_salida = input("Ingrese el nombre del archivo CSV (por defecto: 'tickets.csv'): ") or "tickets.csv"
-            exportar_tickets_csv(matriz_empleados, ids, archivo_salida)
+            exportar_matriz_empleados_csv(matriz_empleados, ids, archivo_salida)
     except ValueError:
         print('')
 
@@ -91,7 +85,7 @@ def reporte_anual_individual(matriz_empleados, ids):
                     except Exception:
                         print('Error - No se pudo generar el archivo CSV')
                 else:
-                    print(f"Error: No se encontró el empleado con ID {id_empleado}.")
+                    print(f"Error - No se encontró el empleado con ID {id_empleado}.")
                 break
 
         except ValueError:
@@ -140,7 +134,6 @@ def reporte_mensual(matriz_empleados, ids):
                         total_mensual += len(matriz_empleados[ind_empleado][mes_ind])
                         print(f'\n --- El total de tickets mensual del mes {mes}, del empleado {id_empleado} es de {total_mensual}. ---')
                         break
-
                     except ValueError:
                         print("Error - Por favor ingrese un número válido para el mes.")
                 break

@@ -9,7 +9,7 @@ def print_submenu():
     print("2. Reporte Anual Individual")
     print("3. Reporte Mensual")
     print("4. Reporte de Desempeño de Empleados")
-    print("5. Exportar reportes detallados a un archivo CSV")
+    print("5. Exportar Reportes Detallados a un Archivo CSV")
     print("6. Salir")
 def sub_menu_reportes(matriz_empleados, ids):
     print_submenu()
@@ -19,7 +19,6 @@ def sub_menu_reportes(matriz_empleados, ids):
         if opcion == 1:
             reporte_anual(matriz_empleados, ids)
             print_submenu()
-
         elif opcion == 2:
             reporte_anual_individual(matriz_empleados, ids)
             print_submenu()
@@ -33,7 +32,7 @@ def sub_menu_reportes(matriz_empleados, ids):
             exportar_tickets_csv(matriz_empleados, ids,archivo_salida='reporteTickets.csv')
             print_submenu()
         else:
-            print("opcion no valida")
+            print("Opción no válida")
         opcion = obtener_opcion()
 
 def print_menu():

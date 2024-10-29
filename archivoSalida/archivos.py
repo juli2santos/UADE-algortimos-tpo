@@ -1,37 +1,10 @@
-# crear un archivo csv con un header con el diccionario de cada mes, hay que poner cada ticket en una fila
-#string doble
-
 import csv
-def exportar_tickets_csv(matriz_empleados, ids, archivo_salida="tickets.csv"):
-    """
-    Exporta los tickets de los empleados a un archivo CSV con encabezado estructurado.
-    
-    :param matriz_empleados: Matriz que contiene los tickets de los empleados por mes.
-    :param ids: Lista de IDs de empleados.
-    :param archivo_salida: Nombre del archivo CSV donde se exportarán los datos.
-    """
-    meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
-    columnas = len(meses)
 
+def exportar_tickets_csv(matriz_empleados, ids, archivo_salida="tickets.csv"):
+    meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
     try:
         with open(archivo_salida, mode='w', newline='') as archivo_csv:
             escritor_csv = csv.writer(archivo_csv)
-
-            #Encabezado al igual que la matriz de empleados
-            header = ['Empleado ID'] + [f"{mes:>5}" for mes in meses]
-            escritor_csv.writerow(header)
-
-            escritor_csv.writerow(['-' * 15] + ['-' * 5 for _ in range(columnas)])
-
-            # Agregar la cantidad de tickets por mes para cada empleado
-            for i, id_empleado in enumerate(ids):
-                fila = [f"Empleado {id_empleado:<6}"] 
-                for j in range(columnas):
-                    fila.append(f"{len(matriz_empleados[i][j]):^5}") 
-                escritor_csv.writerow(fila)
-
-            escritor_csv.writerow([])
-
             # Encabezado de los tickets detallados
             escritor_csv.writerow(["Empleado ID", "Mes", "Ticket ID", "Descripción", "Fecha", "Prioridad"])
 
@@ -53,12 +26,36 @@ def exportar_tickets_csv(matriz_empleados, ids, archivo_salida="tickets.csv"):
     except Exception:
         print("Error al generar el archivo CSV")
 
-def exportar_tickets_empleado_csv(matriz_empleados, id_empleado, ids, archivo_salida="reporte_empleado.csv"):
+def exportar_matriz_empleados_csv(matriz_empleados, ids, archivo_salida="tickets.csv"):
+    meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
+    columnas = len(meses)
 
+    try:
+        with open(archivo_salida, mode='w', newline='') as archivo_csv:
+            escritor_csv = csv.writer(archivo_csv)
+
+            #Encabezado al igual que la matriz de empleados
+            header = ['Empleado ID'] + [f"{mes:>5}" for mes in meses]
+            escritor_csv.writerow(header)
+
+            escritor_csv.writerow(['-' * 15] + ['-' * 5 for _ in range(columnas)])
+
+            # Agregar la cantidad de tickets por mes para cada empleado
+            for i, id_empleado in enumerate(ids):
+                fila = [f"Empleado {id_empleado:<6}"] 
+                for j in range(columnas):
+                    fila.append(f"{len(matriz_empleados[i][j]):^5}") 
+                escritor_csv.writerow(fila)
+
+        print(f"Archivo CSV '{archivo_salida}' generado exitosamente.")
+    except Exception:
+        print("Error al generar el archivo CSV")
+
+def exportar_tickets_empleado_csv(matriz_empleados, id_empleado, ids, archivo_salida="reporte_empleado.csv"):
     meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
     
     if id_empleado not in ids:
-        print(f"Error. No se encontró el empleado con ID {id_empleado}.")
+        print(f"Error - No se encontró el empleado con ID {id_empleado}.")
         return
     ind_empleado = ids.index(id_empleado)
     
@@ -88,22 +85,19 @@ def exportar_tickets_empleado_csv(matriz_empleados, id_empleado, ids, archivo_sa
 
 
 def exportar_tickets_mes_csv(matriz_empleados, mes, id_empleado, ids, archivo_salida="reporte_mes.csv"):
-
     meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
     
     if mes < 1 or mes > 12:
-        print("Error. Mes inválido. Debe ser un valor entre 1 y 12.")
+        print("Error - Mes inválido. Debe ser un valor entre 1 y 12.")
         return
     mes_ind= mes - 1
     
     try:
         with open(archivo_salida, mode='w', newline='') as archivo_csv:
             escritor_csv = csv.writer(archivo_csv)
-            
             # Encabezado general
             escritor_csv.writerow(["Empleado ID", "Mes", "Ticket ID", "Descripción", "Fecha", "Prioridad"])
             
-
             if id_empleado in ids:
                 i = ids.index(id_empleado)
                 tickets_mes = matriz_empleados[i][mes_ind]
