@@ -22,7 +22,8 @@ def actualizar_tickets(matriz, ids):
             try:
                 empleado = int(input("Ingrese el ID del empleado al que desea modificarle un ticket: "))
                 if empleado not in ids:
-                    raise ValueError("Error - ID de empleado inválido.")
+                        print("Error - ID de empleado inválido.")
+                        continue
                 break  # Salir del bucle si el ID es válido
             except ValueError:
                 print('"Error - ID de empleado inválido."')
@@ -39,10 +40,11 @@ def actualizar_tickets(matriz, ids):
             except ValueError:
                 print('Error - Mes inválido. Debe ingresar un valor entre 1 y 12: ')
 
-        # Me fijo si hay ticktes para ese empleado para ese mes
+        # Me fijo si hay tickets para ese empleado para ese mes
         if len(matriz[ids.index(empleado)][mes - 1]) == 0:
             print(f"No hay tickets registrados para el empleado {empleado} en el mes {mes}.")
-            continue
+            break
+
         try:
             # muestro los tickets disponibles
             print(f"Tickets para el empleado {empleado} en el mes {mes}:")
