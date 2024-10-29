@@ -9,7 +9,6 @@ def main():
     usuarios = ["usuario1", "usuario2"]
     contrasenas = ["password1", "password2"]
 
-
     continuar = True
 
     while continuar:
@@ -28,13 +27,14 @@ def main():
                 ids = []  # lista de ids para empleados
 
                 for f in range(filas):
-                    matriz_empleados.append([0] * columnas)  # creacion de matriz de forma dinamica
+                    matriz_empleados.append([[] for j in range(columnas)]) # creacion de matriz de forma dinamica
+                    # matriz_empleados.append([0] * columnas) 
 
                 if not ids:  # generacion de ids automaticamente post ingresar numero de empleados
                     generar_ids(len(matriz_empleados), ids)
-
+                tickets = []
                 """Menú principal para la gestión de tickets."""
-                menu(matriz_empleados, columnas, ids)
+                menu(matriz_empleados, columnas, ids, tickets)
             else:
                 print("Acceso denegado.")
         elif opcion == 2:
