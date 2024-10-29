@@ -33,27 +33,14 @@ es_entero_positivo = lambda valor: valor.isdigit() and int(valor) >= 0
 def validar_opcion(opcion, min_valor, max_valor):
     return es_entero(opcion, min_valor, max_valor)
 
-def obtener_opcion():
-    opcion = input("Elige una opción (1-6): ")
-    while not validar_opcion(opcion, 1, 6):
-        print("Error. Debe ser un número entre 1 y 6.")
-        opcion = input("Elige una opción (1-6): ")
-    return int(opcion)
 
-def opcion_reutilizable():
-    opcion = input('Elige una opción (1-3): ')
-    while not validar_opcion(opcion, 1, 3):
-        print("Error. Debe ser un número entre 1 y 3.")
-        opcion = input("Elige una opción (1-3): ")
-    return int(opcion)
+def obtener_opcion(valor_inferior, valor_superior, mensaje_salida):
+    opcion = input(mensaje_salida)
+    while not validar_opcion(opcion, valor_inferior, valor_superior):
+        print(f'Error - Debe ser un número entre {valor_inferior} y {valor_superior}.')
+        opcion = input(mensaje_salida)
+    return int(opcion)    
 
-
-def opcion_reporte():
-    opcion = input('Elige una opción (1-2): ')
-    while not validar_opcion(opcion, 1, 2):
-        print("Error. Debe ser un número entre 1 y 2.")
-        opcion = input("Elige una opción (1-2): ")
-    return int(opcion)
 
 def obtener_prioridad_valida(ticket_id):
     # Validar que la prioridad ingresada esté en la lista permitida
@@ -62,10 +49,10 @@ def obtener_prioridad_valida(ticket_id):
         prioridad = input(f'Ingrese la prioridad del ticket {ticket_id} ({prioridades_permitidas}): ').strip().lower()
         try:
             if prioridad not in prioridades_permitidas:
-                raise ValueError(f'Error: "{prioridad}" no es una prioridad válida.')
+                print(f'Error: "{prioridad}" no es una prioridad válida.')
             return prioridad
-        except ValueError as mensajeError:
-            print(mensajeError)
+        except ValueError:
+            print(f'Error: "{prioridad}" no es una prioridad válida.')
 
 def obtener_dia_valido(ticket_id, mes):
     dia_mes = dias_de_cada_mes.get(mes, 31)
@@ -90,4 +77,4 @@ def validar_fecha(mes, dia):
         fecha = datetime(año_actual, mes, dia)
         return fecha  # Si se crea la fecha, es válida
     except ValueError:
-        raise ValueError("Día fuera del rango válido para el mes.")
+        print("Día fuera del rango válido para el mes.")

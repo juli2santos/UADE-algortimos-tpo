@@ -76,7 +76,6 @@ def actualizar_tickets(matriz, ids):
 
 
 def mostrar_tickets(matriz_empleados, columnas, ids):
-
     meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
     header = ' ' * 15 + ''.join([f"{mes:5}|" for mes in meses])
     print(header)
@@ -120,9 +119,6 @@ def cargar_tickets(matriz_empleados, ids, tickets):
         if siguienteEmpleado != 's':
             break
 
-
-
-
 def crearTicket(tickets,mes):
     while True:
         ticket_id = randint(10000, 99999)
@@ -133,10 +129,10 @@ def crearTicket(tickets,mes):
         try:
             descripcion = input(f'Ingrese la descripción del ticket {ticket_id}: ')
             if not descripcion.strip(): 
-                raise ValueError('La descripción no puede estar vacía.')
+                print('La descripción no puede estar vacía.')
             break
-        except ValueError as error:
-            print(error)
+        except ValueError:
+            print('La descripción no puede estar vacía.')
 
     ticket = {
         'id': ticket_id,
@@ -148,8 +144,6 @@ def crearTicket(tickets,mes):
     tickets.append(ticket) 
     return ticket
     
-
-
 def generarCargaInicial (matriz_empleados, ids, tickets):
     meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
     for i in range (len(matriz_empleados)):
@@ -173,8 +167,7 @@ def generarCargaInicial (matriz_empleados, ids, tickets):
                     matriz_empleados[i][j][ticket['id']] = ticket
                     band = True
     print("Carga incial finalizada")
-                
-    
+                 
 def generarCargaInicial (matriz_empleados, ids, tickets):
     meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
     for i in range (len(matriz_empleados)):
@@ -198,4 +191,65 @@ def generarCargaInicial (matriz_empleados, ids, tickets):
                     matriz_empleados[i][j][ticket['id']] = ticket
                     band = True
     print("Carga inicial finalizada.")
-                
+
+def eliminar_ticket(matriz_empleados, ids):
+    print(f"\n--- IDs de los empleados: {ids} ---")
+
+    #Empleado
+    while True:
+        try:
+            empleado_id = int(input("Ingrese el ID del empleado: "))
+            if empleado_id not in ids:
+                print("Error - ID de empleado inválido.")
+                continue
+            break
+        except ValueError:
+            print("Error - ID de empleado inválido.")
+
+    #Mes
+    while True:
+        try:
+            mes = int(input("Ingrese el mes (1-12) en el cual desea eliminar un ticket: "))
+            if mes < 1 or mes > 12:
+                print("Error - Mes inválido. Debe ingresar un valor entre 1 y 12")
+                continue
+            break
+        except ValueError:
+            print("Error - Mes inválido. Debe ingresar un valor entre 1 y 12")
+
+    #Validar si hay existencia de tickets del empleado en dicho mes 
+    tickets_mes = matriz_empleados[ids.index(empleado_id)][mes - 1]
+    if not tickets_mes:
+        print(f"No hay tickets registrados para el empleado {empleado_id} en el mes {mes}.")
+        return
+
+    #Mostrar los tickets disponibles
+    print(f"\nTickets del empleado {empleado_id} en el mes {mes}:")
+    ticket_ids = list(tickets_mes.keys())
+    for i, ticket_id in enumerate(ticket_ids):
+        ticket = tickets_mes[ticket_id]
+        print(f"{i + 1}. ID: {ticket_id}, Descripción: {ticket['descripcion']}, Prioridad: {ticket['prioridad']}")
+
+    #Input del ticket a eliminar
+    while True:
+        try:
+            id_muestra_input = ticket_ids[0]
+            ticket_elegido = int(input(f"Ingrese el número del ticket que desea eliminar (por ejemplo, 1 para ID {id_muestra_input}): "))
+            if ticket_elegido < 1 or ticket_elegido > len(ticket_ids):
+                print(f"Error - Ingrese el número del ticket que desea eliminar (por ejemplo, 1 para ID {id_muestra_input}): ")
+                continue
+            break
+        except ValueError:
+            print(f"Error - Ingrese el número del ticket que desea eliminar (por ejemplo, 1 para ID {id_muestra_input}): ")
+
+    #Elimino el ticket y actualizacion de la matriz
+    while True:
+        try:
+            ticket_id_a_eliminar = ticket_ids[ticket_elegido - 1]
+            tickets_mes.pop(ticket_id_a_eliminar, None)  # Elimino el ticket si existe
+            matriz_empleados[ids.index(empleado_id)][mes - 1] = tickets_mes # Actualizo la matriz
+            break
+        except IndexError:
+            print('Error - Ingrese un número de ID de ticket válido.')
+
+    print(f"\nTicket {ticket_id_a_eliminar} eliminado correctamente")

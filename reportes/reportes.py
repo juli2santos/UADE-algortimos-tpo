@@ -1,4 +1,4 @@
-from validadores.validadores import opcion_reutilizable, opcion_reporte
+from validadores.validadores import obtener_opcion
 from archivoSalida.archivos import exportar_matriz_empleados_csv, exportar_tickets_empleado_csv, exportar_tickets_mes_csv
 
 def sumaEmpleadosRecursivo(matriz_empleados, i=0):
@@ -45,7 +45,7 @@ def reporte_anual(matriz_empleados, ids):
     print('1. Mostrar en Consola')
     print('2. Exportar a CSV')
     try:
-        opcion = opcion_reporte()
+        opcion = obtener_opcion(1,2,'Elige una opción (1-2): ')
         if opcion == 1:
             mostrar_reporte_detallado(matriz_empleados, ids)
         elif opcion == 2:
@@ -57,7 +57,7 @@ def reporte_anual(matriz_empleados, ids):
 def reporte_anual_individual(matriz_empleados, ids):
     print('1. Mostrar reporte por consola')
     print('2. Exportar reporte detallado a un archivo CSV')
-    opcion = opcion_reporte()
+    opcion = obtener_opcion(1,2,'Elige una opción (1-2): ')
     
     while True:
         try:
@@ -91,13 +91,12 @@ def reporte_anual_individual(matriz_empleados, ids):
         except ValueError:
             print('Error - Por favor, ingrese un número válido.')
 
-
 def reporte_mensual(matriz_empleados, ids): 
     print('\n-----------------------')
     print('1. Reporte Mensual de Todos los Empleados')
     print('2. Reporte Mensual Individual')
     print('3. Exportar Reporte Individual detallado a CSV')
-    opcion = opcion_reutilizable()
+    opcion = obtener_opcion(1,3,'Elige una opción (1-3): ')
 
     if opcion == 1:
         mes = int(input('Ingrese el mes (1-12) para el cual desea recibir el reporte de tickets: '))
@@ -140,7 +139,6 @@ def reporte_mensual(matriz_empleados, ids):
             except ValueError:
                 print("Error - Por favor ingrese un número válido para el ID del empleado.")  
 
-
     elif opcion == 3:
         try:  
             print(f'\n --- IDs de empleados: {ids} ---')  
@@ -166,8 +164,7 @@ def reporte_desemp_empleados(matriz_empleados, ids):
     print('1. Reporte del Mejor Desempeño de Tickets de Empleado')
     print('2. Reporte del Peor Desempeño de Tickets de Empleado')
     print('3. Reporte del Promedio de Tickets Total de Todos los Empleados')
-    opcion = opcion_reutilizable()
-
+    opcion = obtener_opcion(1,3,'Elige una opción (1-3): ')
 
     if opcion == 1:
         max_tickets = 0

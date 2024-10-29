@@ -14,7 +14,7 @@ def print_submenu():
 def sub_menu_reportes(matriz_empleados, ids):
     print_submenu()
 
-    opcion = obtener_opcion()
+    opcion = obtener_opcion(1,6,'Elige una opción (1-6): ')
     while opcion != 6:
         if opcion == 1:
             reporte_anual(matriz_empleados, ids)
@@ -31,42 +31,40 @@ def sub_menu_reportes(matriz_empleados, ids):
         elif opcion == 5:
             exportar_tickets_csv(matriz_empleados, ids,archivo_salida='reporteTickets.csv')
             print_submenu()
-        else:
-            print("Opción no válida")
-        opcion = obtener_opcion()
+        opcion = obtener_opcion(1,6,'Elige una opción (1-6): ')
 
 def print_menu():
     print("\n --- Menú Ticketrack ---")
     print("1. Añadir Tickets.")
     print("2. Modificar Tickets.")
-    print("3. Generar Reporte.")
-    print("4. Mostrar Tickets.")
-    print("5. Generar carga inicial")
-    print("6. Salir.")
+    print("3. Eliminar Tickets.")
+    print("4. Generar Reporte.")
+    print("5. Mostrar Tickets.")
+    print("6. Generar carga inicial")
+    print("7. Salir.")
 
 def menu(matriz_empleados, columnas, ids, tickets):
     print_menu()
-    opcion = obtener_opcion()
-    while opcion != 6:
+    opcion = obtener_opcion(1,7,'Elige una opción (1-7): ')
+    while opcion != 7:
         if opcion == 1:
             cargar_tickets(matriz_empleados, ids, tickets)
             print_menu()
-
         elif opcion == 2:
             actualizar_tickets(matriz_empleados, ids)
             print_menu()
-
         elif opcion == 3:
-            sub_menu_reportes(matriz_empleados, ids)
+            eliminar_ticket(matriz_empleados, ids)
             print_menu()
         elif opcion == 4:
+            sub_menu_reportes(matriz_empleados, ids)
+            print_menu()
+        elif opcion == 5:
             mostrar_tickets(matriz_empleados, columnas, ids)
             print_menu()
-        if opcion == 5:
+        if opcion == 6:
             generarCargaInicial(matriz_empleados, ids, tickets)
             print_menu()
-        else:
-            print("Opcion no valida")
-        opcion = obtener_opcion()
+        opcion = obtener_opcion(1,7,'Elige una opción (1-7): ')
     print(f'\n Hasta luego.')
 
