@@ -49,7 +49,7 @@ def actualizar_tickets(matriz, ids):
             # muestro los tickets disponibles
             print(f"Tickets para el empleado {empleado} en el mes {mes}:")
             for ticket_id, ticket in matriz[ids.index(empleado)][mes - 1].items():
-                print(f"ID: {ticket_id}, Descripción: {ticket['descripcion']}, Prioridad: {ticket["prioridad"]}")
+                print(f"ID: {ticket_id}, Descripción: {ticket['descripcion']}, Prioridad: {ticket['prioridad']}")
 
             # pido el ID del ticket a modificar
             ticket_id = int(input("Ingrese el ID del ticket que desea modificar: "))
