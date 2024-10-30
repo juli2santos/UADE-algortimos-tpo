@@ -140,25 +140,28 @@ def reporte_mensual(matriz_empleados, ids):
                 print("Error - Por favor ingrese un número válido para el ID del empleado.")  
 
     elif opcion == 3:
-        try:  
-            print(f'\n --- IDs de empleados: {ids} ---')  
-            id_empleado = int(input('Ingrese el ID del empleado que desea solicitar su reporte mensual: '))
-            while id_empleado not in ids:
-                id_empleado = int(input('Error - ID inexistente. Ingrese un ID valido: '))
+        while True:
+            try:  
+                print(f'\n --- IDs de empleados: {ids} ---')  
+                id_empleado = int(input('Ingrese el ID del empleado que desea solicitar su reporte mensual: '))
+                while id_empleado not in ids:
+                    id_empleado = int(input('Error - ID inexistente. Ingrese un ID valido: '))
+                while True:
+                    try:
+                        mes = int(input('Ingrese el mes (1-12) para el cual desea recibir el reporte de tickets: '))
+                        while mes < 1 or mes > 12:
+                            mes = int(input("Error - Mes inválido. Debe ingresar un valor entre 1 y 12: "))  
 
-            try:
-                mes = int(input('Ingrese el mes (1-12) para el cual desea recibir el reporte de tickets: '))
-                while mes < 1 or mes > 12:
-                    mes = int(input("Error - Mes inválido. Debe ingresar un valor entre 1 y 12: "))  
-
-                archivo_salida = input("Ingrese el nombre del archivo CSV (por defecto: 'reporteMensualEmpleado.csv'): ") or "reporteMensualEmpleado.csv"
-                exportar_tickets_mes_csv(matriz_empleados, mes, id_empleado, ids, archivo_salida)
-                
+                        archivo_salida = input("Ingrese el nombre del archivo CSV (por defecto: 'reporteMensualEmpleado.csv'): ") or "reporteMensualEmpleado.csv"
+                        exportar_tickets_mes_csv(matriz_empleados, mes, id_empleado, ids, archivo_salida)
+                        break
+                    except ValueError:
+                        print("Error - Por favor ingrese un número válido para el mes.")
+                break
             except ValueError:
-                print("Error - Por favor ingrese un número válido para el mes.")
-                
-        except Exception:
-            print('Error Inesperado')
+                print("Error - Por favor ingrese un número válido para el ID del empleado.")
+            except Exception:
+                print('Error Inesperado')
 
 def reporte_desemp_empleados(matriz_empleados, ids):
     print('1. Reporte del Mejor Desempeño de Tickets de Empleado')
