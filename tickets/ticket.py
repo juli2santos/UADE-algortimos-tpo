@@ -51,12 +51,28 @@ def actualizar_tickets(matriz, ids):
             for ticket_id, ticket in matriz[ids.index(empleado)][mes - 1].items():
                 print(f"ID: {ticket_id}, Descripción: {ticket['descripcion']}, Prioridad: {ticket['prioridad']}")
 
-            # pido el ID del ticket a modificar
-            ticket_id = int(input("Ingrese el ID del ticket que desea modificar: "))
-            while ticket_id not in matriz[ids.index(empleado)][mes - 1]:
-                ticket_id = int(input("Error - ID de ticket inválido. Ingrese un ID de ticket existente: "))
+            while True:
+                try:
+                    ticket_id = int(input("Ingrese el ID del ticket que desea modificar: "))
+                    if ticket_id not in matriz[ids.index(empleado)][mes - 1]:
+                        print("Error - ID de ticket inválido. Intente nuevamente.")
+                        continue
+                    break
+                except ValueError:
+                    print("Error - Ingrese un número válido.")
+
+
+            while True:
+                try:
+                    opcion = int(input("Ingrese 1 para modificar la descripción o 2 para modificar la prioridad: "))
+                    if opcion not in [1, 2]:
+                        print("Error - Opción inválida. Intente nuevamente.")
+                        continue
+                    break
+                except ValueError:
+                    print("Error - Ingrese un número válido.")
+
             
-            opcion = int(input("Ingrese 1 si quiere modificar la descripción o 2 si quiere modificar la prioridad"))
             # Modificar los datos del ticket
             if opcion == 1:
                 nuevaDesc = input("Nueva descripción: ")
@@ -71,9 +87,11 @@ def actualizar_tickets(matriz, ids):
         print(f"Ticket {ticket_id} actualizado correctamente.")
         print(f"\n --- IDs de los empleados: {ids} ---")
 
-        salida = int(input("Ingrese 1 para continuar con otra carga, o ingrese cualquier otro número para regresar al menú: "))
-
-        if salida != 1:
+        try:
+            salida = int(input("Ingrese 1 para continuar con otra carga, o cualquier otro número para regresar al menú: "))
+            if salida != 1:
+                salir = True
+        except ValueError:
             salir = True
 
 
